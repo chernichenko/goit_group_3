@@ -35,3 +35,6 @@
     fetch(link.href, fetchOpts);
   }
 })();
+(() => {
+  console.log("here");
+})();
