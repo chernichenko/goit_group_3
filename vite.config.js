@@ -4,7 +4,7 @@ import handlebars from 'vite-plugin-handlebars'
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 
 export default defineConfig({
-	base: '/goit-team-3/',
+	base: '/goit_group_3/',
 	plugins: [
 		ViteImageOptimizer({}),
 		handlebars({
