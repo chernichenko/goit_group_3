@@ -1,4 +1,5 @@
 import Api from "./api.js";
+import "./header.js";
 
 const api = new Api({});
 
