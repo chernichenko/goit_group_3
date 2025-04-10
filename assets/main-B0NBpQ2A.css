@@ -1,0 +1,470 @@
+:root {
+  --color-black: #242424;
+  --color-white: #F4F4F4;
+  --color-light-border: #E6E6E6;
+  --color-dark-border: #323232;
+  --font-family-primary: 'DM Sans';
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  padding: 0;
+  margin: 0;
+}
+
+ul,
+ol {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-family-primary), sans-serif;
+  color: var(--color-text);
+  background: var(--color-white);
+  margin: 0;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  font-size: 3.75rem;
+  font-weight: 700;
+  line-height: 1.17;
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+p {
+  font-size: 1.125rem;
+}
+
+section {
+  padding: 4.5rem 0;
+}
+
+.container {
+  max-width: 1152px;
+  padding: 0 2rem;
+  margin: auto;
+}
+
+.btn {
+  border-radius: 0.75rem;
+  height: 3rem;
+  padding: 0.75rem 1.5rem;
+  transition:
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+  cursor: pointer;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+}
+
+.btn-primary {
+  background-color: var(--color-black);
+  border: 1px solid var(--color-white);
+  color: var(--color-white);
+}
+
+.btn-primary:focus,
+.btn-primary:hover {
+  background-color: var(--color-white);
+  color: var(--color-black);
+}
+
+.btn-secondary {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-white);
+  color: var(--color-black);
+}
+
+.btn-secondary:focus,
+.btn-secondary:hover {
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+.social-list {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.social-list__item__button {
+  display: flex;
+  padding: 0.5rem;
+  border-radius: 0.625rem;
+  border: 1px solid var(--color-light-border);
+  color: var(--color-black);
+  background-color: transparent;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.social-list__item__button:focus,
+.social-list__item__button:hover {
+  background: var(--color-black);
+  color: var(--color-white);
+}
+
+.social-list__item__button__contrast {
+  border: 1px solid var(--color-dark-border);
+  color: var(--color-white);
+}
+
+.social-list__item__button__contrast:focus,
+.social-list__item__button__contrast:hover {
+  background: var(--color-white);
+  color: var(--color-black);
+}
+
+/* Tablet */
+
+@media (min-width: 768px) {
+	
+}
+
+/* Desktop */
+
+@media (min-width: 1280px) {
+	
+}
+
+.header {
+
+}
+
+.hero {
+
+}
+
+.exercises {
+    background-color: #f4f4f4;
+}
+
+.exercises .motivation-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.exercises .motivation-image img {
+    width: 100%;
+    border-radius: 1.25rem;
+}
+
+.exercises .sports-norm-card {
+    background-color: #ffffff;
+    border-radius: 1.25rem;
+    padding: 1.25rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.exercises .tabs {
+    display: flex;
+    justify-content: left;
+    gap: 1.25rem;
+    height: 2rem;
+    font-family: DM Sans;
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: 0%;
+    color: #24242499;
+}
+
+.exercises .tab-link {
+    text-decoration: none;
+    color: #666;
+    font-weight: 500;
+    padding-bottom: 0.25rem;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.exercises .tab-link.active {
+    color: #242424;
+    font-family: DM Sans;
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: 0%;
+}
+
+.exercises .tab-link.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0.25rem;
+    background-color: #242424;
+    border-radius: 0.125rem;
+}
+
+.exercises .search-container {
+    display: none;
+    margin: 1.25rem;
+}
+
+.exercises .search-input {
+    width: 100%;
+    height: 2.75rem;
+    border: 1px solid #242424;
+    border-radius: 1.875rem;
+    padding-left: 0.875rem;
+}
+
+.exercises .tab-content {
+    margin: 1.25rem 0;
+}
+
+.exercises .body-parts-tab,
+.exercises .equipment-tab,
+.exercises .body-parts-title {
+    display: none;
+}
+
+.exercises .quote-card {
+    background-color: #242424;
+    border-radius: 1.25rem;
+    padding: 1rem;
+    position: relative;
+    display: flex;
+    gap: 1rem;
+}
+
+.exercises .quote-title {
+    color: #f4f4f4;
+    font-family: DM Sans;
+    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+    letter-spacing: 0;
+}
+
+.exercises .quote-text,
+.exercises .quote-author {
+    font-family: DM Sans;
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+    letter-spacing: 0;
+}
+
+.exercises .quote-text {
+    color: #f4f4f499;
+    margin-top: 0.375rem;
+    margin-bottom: 1.125rem;
+}
+
+.exercises .quote-author {
+    color: #f4f4f4;
+}
+
+.exercises .quote-title svg {
+    float: right;
+}
+
+.exercises .sports-title {
+    font-family: DM Sans;
+    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+    letter-spacing: 0;
+    color: #242424;
+}
+
+.exercises .sports-subtitle {
+    font-family: DM Sans;
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+    letter-spacing: 0;
+    color: #24242499;
+    margin-bottom: 1rem;
+    margin-top: 0.125rem;
+}
+
+.exercises .sports-text {
+    font-family: DM Sans;
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+    letter-spacing: 0;
+    color: #242424;
+}
+
+.exercises .exercises-title {
+    margin-bottom: 2rem;
+    font-family: DM Sans;
+    font-weight: 400;
+    font-size: 1.75rem;
+    line-height: 2.375rem;
+    letter-spacing: -2%;
+    color: #242424;
+}
+
+.exercises .waist-title {
+    font-family: DM Sans;
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    letter-spacing: -2%;
+    color: #24242480;
+}
+
+@media (min-width: 48rem) {
+    .exercises .motivation-section {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .exercises .quote-card,
+    .exercises .motivation-image,
+    .exercises .sports-norm-card {
+        width: calc(50% - 0.5rem);
+    }
+
+    .exercises .quote-title {
+        font-size: 1.5rem;
+        line-height: 2rem;
+    }
+
+    .exercises .quote-author {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    .exercises .exercises-nav {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .exercises .exercises-title {
+        width: 100%;
+        font-size: 2.75rem;
+        line-height: 3rem;
+    }
+
+    .exercises .tabs {
+        margin-bottom: 0;
+    }
+
+    .exercises .search-container {
+        width: 17rem;
+    }
+}
+
+@media (min-width: 80rem) {
+    .exercises .tab-motivation-cantainer {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        justify-content: row;
+    }
+
+    .exercises .motivation-section {
+        width: 27.75rem;
+        grid-row: 1;
+        grid-column: 1;
+        padding: 0 1rem;
+    }
+
+    .exercises .tab-content {
+        grid-row: 1;
+        grid-column: 2;
+    }
+
+    .exercises .quote-card,
+    .exercises .motivation-image,
+    .exercises .sports-norm-card {
+        width: 100%;
+    }
+
+    .exercises .exercises-nav {
+        display: flex;
+        justify-content: column;
+        flex-wrap: nowrap;
+    }
+
+    .exercises .exercises-title {
+        width: 100%;
+    }
+
+    .exercises .search-container {
+        justify-content: right;
+    }
+
+    .exercises .tabs a {
+        white-space: nowrap;
+    }
+
+    .exercises .search-input {
+        width: 17rem;
+    }
+}
+
+.exercises-top {
+
+}
+
+.exercises-main {
+
+}
+
+.exercises-left {
+
+}
+
+.category-card {
+
+}
+
+.exercise-card {
+  
+}
+
+.exercises-modal {
+  
+}
+
+.rating-modal {
+  
+}
+
+.footer {
+
+}
