@@ -1,6 +1,6 @@
-
 import Api from "./api.js";
 import "./header.js";
+import { updateModal } from "./exercises-modal.js";
 
 const api = new Api({});
 
@@ -58,30 +58,28 @@ quoteText.textContent = quoteOfTheDay.quote;
 
 //favorites
 
-const favoritesList = document.querySelector('.favorites-list');
-const noFavoritesMsg = document.querySelector('#no-favorites-msg');
+const favoritesList = document.querySelector(".favorites-list");
+const noFavoritesMsg = document.querySelector("#no-favorites-msg");
 
-
-const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
 if (favorites.length === 0) {
-    noFavoritesMsg.classList.remove('hidden');
+  noFavoritesMsg.classList.remove("hidden");
 } else {
-    noFavoritesMsg.classList.add('hidden');
-    
-    favorites.forEach(exercise => {
-       
-        const exerciseCard = createExerciseCard(exercise);
+  noFavoritesMsg.classList.add("hidden");
 
-        
-        favoritesList.appendChild(exerciseCard);
-    });
+  favorites.forEach((exercise) => {
+    const exerciseCard = createExerciseCard(exercise);
+
+    favoritesList.appendChild(exerciseCard);
+  });
 }
 
 function removeFromFavorites(exercise) {
-    const updatedFavorites = favorites.filter(fav => fav.name !== exercise.name);
-    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
-    
-   
-    window.location.reload();
+  const updatedFavorites = favorites.filter(
+    (fav) => fav.name !== exercise.name
+  );
+  localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+
+  window.location.reload();
 }
