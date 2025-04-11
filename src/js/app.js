@@ -13,6 +13,22 @@ const searchContainer = document.querySelector(".exercises .search-container");
 const bodyPartsTitle = document.querySelector(".exercises .body-parts-title");
 const quoteAuthor = document.querySelector(".quote-author");
 const quoteText = document.querySelector(".quote-text");
+const modal = document.getElementById('rating-backdrop');
+const closeBtn = document.getElementById('close-modal');
+const ratingInputs = document.querySelectorAll('.stars input[type="radio"]');
+const ratingValue = document.getElementById('rating-value');
+
+export function openRatingModal() {
+  modal.classList.remove('is-hidden');
+}
+
+closeBtn.addEventListener('click', () => modal.classList.add('is-hidden'));
+
+ratingInputs.forEach(input => {
+  input.addEventListener('change', () => {
+    ratingValue.textContent = `${parseFloat(input.value).toFixed(1)}`;
+  });
+});
 
 tabLinks.forEach((link) => {
   link.addEventListener("click", function (e) {
