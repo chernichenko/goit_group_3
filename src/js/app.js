@@ -77,7 +77,6 @@ if (favorites.length === 0) {
     });
 }
 
-
 function removeFromFavorites(exercise) {
     const updatedFavorites = favorites.filter(fav => fav.name !== exercise.name);
     localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
