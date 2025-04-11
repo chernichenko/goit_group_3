@@ -1,6 +1,12 @@
-
 import Api from "./api.js";
 import "./header.js";
+
+import Exercises from "./exercises.js";
+import {
+  FILTERS_MUSCLES,
+  FILTERS_BODY_PARTS,
+  FILTERS_EQUIPMENT,
+} from "./model.js";
 
 const api = new Api({});
 
@@ -13,19 +19,19 @@ const searchContainer = document.querySelector(".exercises .search-container");
 const bodyPartsTitle = document.querySelector(".exercises .body-parts-title");
 const quoteAuthor = document.querySelector(".quote-author");
 const quoteText = document.querySelector(".quote-text");
-const modal = document.getElementById('rating-backdrop');
-const closeBtn = document.getElementById('close-modal');
+const modal = document.getElementById("rating-backdrop");
+const closeBtn = document.getElementById("close-modal");
 const ratingInputs = document.querySelectorAll('.stars input[type="radio"]');
-const ratingValue = document.getElementById('rating-value');
+const ratingValue = document.getElementById("rating-value");
 
 export function openRatingModal() {
-  modal.classList.remove('is-hidden');
+  modal.classList.remove("is-hidden");
 }
 
-closeBtn.addEventListener('click', () => modal.classList.add('is-hidden'));
+closeBtn.addEventListener("click", () => modal.classList.add("is-hidden"));
 
-ratingInputs.forEach(input => {
-  input.addEventListener('change', () => {
+ratingInputs.forEach((input) => {
+  input.addEventListener("change", () => {
     ratingValue.textContent = `${parseFloat(input.value).toFixed(1)}`;
   });
 });
@@ -72,4 +78,24 @@ const quoteOfTheDay = await api.getQuoteOfTheDay();
 quoteAuthor.textContent = quoteOfTheDay.author;
 quoteText.textContent = quoteOfTheDay.quote;
 
+const musclesExercises = new Exercises(api, FILTERS_MUSCLES, musclesTab, {
+  limit: 12,
+  startCallback: (exercise) => {
+    alert(`Exercise ${exercise.name} has been started!`);
+  },
+});
 
+const bodyPartsExercises = new Exercises(
+  api,
+  FILTERS_BODY_PARTS,
+  bodyPartsTab,
+  { limit: 12 },
+);
+
+const equipmentExercises = new Exercises(api, FILTERS_EQUIPMENT, equipmentTab, {
+  limit: 12,
+});
+
+await musclesExercises.resetToFilters();
+await bodyPartsExercises.resetToFilters();
+await equipmentExercises.resetToFilters();
