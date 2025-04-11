@@ -1,9 +1,9 @@
 :root {
   --color-black: #242424;
-  --color-white: #F4F4F4;
-  --color-light-border: #E6E6E6;
+  --color-white: #f4f4f4;
+  --color-light-border: #e6e6e6;
   --color-dark-border: #323232;
-  --font-family-primary: 'DM Sans';
+  --font-family-primary: "DM Sans";
 }
 
 h1,
@@ -147,10 +147,8 @@ section {
 
 /* Tablet */
 @media (min-width: 768px) {
-	
 }
 
 /* Desktop */
 @media (min-width: 1280px) {
-	
 }
