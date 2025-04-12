@@ -1,3 +1,78 @@
 <footer class="footer">
-	<div class="container">Footer</div>
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-logo-and-social">
+        <a class="header__logo footer-logo" href="./index.html">
+          <svg
+            class="header__logo-icon footer-logo-icon"
+            width="132"
+            height="24"
+          >
+            <use href="./images/icons.svg#icon-logo"></use>
+          </svg>
+        </a>
+        <div class="footer-social">
+          <ul class="social-list">
+            <li class="social-list__item">
+              <button
+                class="footer-icon social-list__item__button social-list__item__button__contrast"
+              >
+                <svg class="icon" width="1.75rem" height="1.75rem">
+                  <use href="./images/icons.svg#icon-facebook"></use>
+                </svg>
+              </button>
+            </li>
+            <li class="social-list__item">
+              <button
+                class="footer-icon social-list__item__button social-list__item__button__contrast"
+              >
+                <svg class="icon" width="1.75rem" height="1.75rem">
+                  <use href="./images/icons.svg#icon-instagram"></use>
+                </svg>
+              </button>
+            </li>
+            <li class="social-list__item">
+              <button
+                class="footer-icon social-list__item__button social-list__item__button__contrast"
+              >
+                <svg class="icon" width="1.75rem" height="1.75rem">
+                  <use href="./images/icons.svg#icon-youtube"></use>
+                </svg>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-form">
+        <h2>
+          Transforming your <span class="footer-span">body</span> shape with us
+        </h2>
+        <form class="subscribe-form" autocomplete="off">
+          <label>
+            Subscribe and learn about new exercises!
+            <input
+              type="email"
+              name="email"
+              required
+              pattern="^\w+(\.\w+)?@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
+              placeholder="Email"
+            />
+          </label>
+          <button class="btn btn-secondary" type="submit">Send</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <p class="bottom-p">Your Energy. All rights reserved.</p>
+      <div class="footer-links-wrapper">
+        <ul class="footer-links">
+          <li><a class="policy" href="#">Privacy Policy /</a></li>
+          <li><a class="policy" href="#">Terms of Service</a></li>
+        </ul>
+        <p class="copyright">&#169; 2023</p>
+      </div>
+    </div>
+  </div>
 </footer>

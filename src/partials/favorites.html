@@ -1,5 +1,26 @@
 <section class="favorites">
-  <div class="container">
-    
+  
+  <div class="container favorites-wrapper">
+   
+    <div class="exercises-wrapper">
+      <p class="exercises-title">
+        Exercises </p>
+      {{> exercises
+        showTabs=false 
+        showMusclesContent=false 
+        showBodyPartsContent=false 
+        showEquipmentContent=false 
+      }}
+      
+    </div>
+
+    <div class="favorites-message">
+      <p id="no-favorites-msg" class="hidden">
+        It appears that you haven't added any exercises to your favorites yet.
+        To get started, you can add exercises that you like to your favorites
+        for easier access in the future.
+      </p>
+      <ul class="favorites-list"></ul>
+    </div>
   </div>
 </section>

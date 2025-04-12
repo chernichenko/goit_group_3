@@ -1,3 +1,66 @@
 .favorites {
-  
+    .exercises-nav,
+    .tab-content,
+    .muscles-tab,
+    .body-parts-tab,
+    .equipment-tab {
+      display: none;
+    }
+    
 }
+
+.favorites-wrapper {
+    display: flex;
+    flex-direction: column; 
+    gap: 1.5rem;
+  
+    @media screen and (min-width: 768px) {
+      flex-direction: row;
+      align-items: stretch; 
+    }
+  }
+  
+  .exercises-wrapper {
+    flex: 2;
+  }
+  
+  .favorites-message {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background-color: #f3f3f3;
+    border-radius: 0.75rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+    text-align: center;
+    color: #242424;
+  
+    @media screen and (min-width: 768px) {
+      text-align: right;
+      max-width: 34.625rem;
+      flex-basis: 34.625rem;
+    }
+}
+  .exercises-title {
+font-family: 'DM Sans', sans-serif;
+font-weight: 400;
+font-size: 2.75rem;      
+line-height: 3rem;        
+letter-spacing: -0.02em;  
+color: #242424;
+  }
+    
+  .sports-text {
+    display: none;
+  }
+  
+  
+ 
+  
+  
+  
+  
