@@ -10,7 +10,7 @@
     }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
     .exercises .filters-list {
         grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
     }
@@ -48,11 +48,17 @@
     color: #f4f4f466;
 }
 
-.exercises .filter-icon {
+.exercises .filter-icon-wrap {
     max-height: 225px;
+    background: #242424;
     border-radius: 12px;
+    overflow: hidden;
+}
+
+.exercises .filter-icon {
     width: 100%;
     object-fit: cover;
+    opacity: 0.5;
 }
 
 .exercises .exercises-list {

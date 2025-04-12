@@ -1,7 +1,6 @@
 import Api from "./api.js";
 import "./header.js";
 import { updateModal } from "./exercises-modal.js";
-
 import Exercises from "./exercises.js";
 import {
   FILTERS_MUSCLES,

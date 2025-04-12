@@ -56,11 +56,13 @@ export default class Exercises {
       a.classList.add("filter-link");
       a.href = "#";
       a.innerHTML = `
-<img src="${imgURL}" alt="${name}" class="filter-icon" />
-<div class="filter-info">
-  <span class="filter-name">${name}</span>
-  <span class="filter-category">${this.filter}</span>
-</div>`;
+      <div class="filter-icon-wrap">
+        <img src="${imgURL}" alt="${name}" class="filter-icon" />
+      </div>
+      <div class="filter-info">
+        <span class="filter-name">${name}</span>
+        <span class="filter-category">${this.filter}</span>
+      </div>`;
       li.appendChild(a);
       list.appendChild(li);
 
