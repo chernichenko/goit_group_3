@@ -31,8 +31,21 @@
 
               <div class="motivation-bottom-wrap">
                 <div class="motivation-image">
-                    <img src="./images/quote.jpg" alt="Motivation" />
+                  <picture>
+                    
+                    <source srcset="./images/favorites/favorites-image-desktop@2x.jpg" media="(min-width: 1440px)" type="image/jpg">
+                    
+                    <source srcset="./images/favorites/favorites-image-desktop.jpg" media="(min-width: 1024px)" type="image/jpg">
+                
+                    <source srcset="./images/favorites/favorites-image-tablet@2x.jpg" media="(min-width: 768px)" type="image/jpg">
+                    
+                    <source srcset="./images/favorites/favorites-image-tablet.jpg" media="(min-width: 768px)" type="image/jpg">
+            
+                    <source srcset="./images/favorites/favorites-image-mobile@2x.jpg" media="(max-width: 767px)" type="image/jpg">
+                    <img src="./images/favorites/favorites-image-mobile.jpg" alt="Motivation" loading="lazy" />
+                  </picture>
                 </div>
+                
 
                 <div class="sports-norm-card">
                     <div class="sports-icon">

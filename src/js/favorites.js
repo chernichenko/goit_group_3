@@ -7,3 +7,5 @@ if (favorites.length === 0) {
 } else {
   noFavoritesMsg.classList.add("hidden");
 }
+
+import icons from "/images/icons.svg";
