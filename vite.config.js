@@ -5,6 +5,13 @@ import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 
 export default defineConfig({
 	base: '/goit_group_3/',
+	esbuild: {
+    target: 'esnext',
+  },
+  build: {
+    target: 'esnext',
+    modulePreload: false,
+  },
 	plugins: [
 		ViteImageOptimizer({}),
 		handlebars({
