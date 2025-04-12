@@ -87,8 +87,8 @@
     color: #ffc107;
 }
 
-input,
-textarea {
+.rating-modal input,
+.rating-modal textarea {
     background: #1e1e1e;
     border: 0.0625rem solid white;
     color: white;
@@ -99,7 +99,7 @@ textarea {
     box-sizing: border-box;
 }
 
-textarea {
+.rating-modal textarea {
     resize: none;
     height: 6.25rem;
 }

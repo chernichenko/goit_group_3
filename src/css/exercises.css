@@ -68,6 +68,7 @@
 .exercises .search-container {
     display: none;
     margin: 1.25rem;
+    position: relative;
 }
 
 .exercises .search-input {
@@ -76,6 +77,18 @@
     border: 1px solid #242424;
     border-radius: 1.875rem;
     padding-left: 0.875rem;
+    padding-right: 2.5rem;
+    background: transparent;
+    outline: none;
+}
+
+.exercises .search-container svg {
+    position: absolute;
+    width: 20px;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    fill: none;
 }
 
 .exercises .tab-content {
@@ -177,7 +190,7 @@
     color: #24242480;
 }
 
-@media (min-width: 48rem) {
+@media screen and (min-width: 768px) {
     .exercises .motivation-section {
         flex-direction: row;
         flex-wrap: wrap;
@@ -222,23 +235,21 @@
     }
 }
 
-@media (min-width: 80rem) {
-    .exercises .tab-motivation-cantainer {
-        display: grid;
-        grid-template-columns: 1fr 2fr;
-        justify-content: row;
+@media (min-width: 1280px) {
+    .exercises .tab-motivation-container {
+        display: flex;
+        flex-direction: row-reverse;
     }
 
     .exercises .motivation-section {
-        width: 27.75rem;
-        grid-row: 1;
-        grid-column: 1;
-        padding: 0 1rem;
+        min-width: 27.75rem;
+        padding-right: 2rem;
+        flex-direction: column;
     }
 
     .exercises .tab-content {
-        grid-row: 1;
-        grid-column: 2;
+        flex-grow: 1;
+        margin-top: 0;
     }
 
     .exercises .quote-card,
@@ -269,19 +280,3 @@
         width: 17rem;
     }
 }
-
-.exercises-top {
-
-}
-
-.exercises-main {
-
-}
-
-.exercises-left {
-
-}
-
-  
-  
-

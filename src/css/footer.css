@@ -159,18 +159,23 @@
     margin-bottom: 32px;
   }
 
-  .bottom {
+  .footer .bottom {
     display: flex;
     align-items: center;
-    gap: 78px;
   }
 
-  .bottom div {
+  .footer .bottom-p {
+    width: 270px;
+  }
+
+  .footer .bottom div {
     white-space: nowrap;
   }
 
   .footer-links-wrapper {
     margin-top: 0;
+    width: auto;
+    width: calc(100% - 270px);
   }
 
   .bottom-p {
@@ -181,33 +186,52 @@
 
 @media screen and (min-width: 1280px) {
   .footer-content {
-    gap: 158px;
+    gap: 0;
     margin-bottom: 70px;
+    justify-content: space-between;
+  }
+
+  .footer-logo-and-social {
+    width: 314px;
   }
 
   .footer-form {
+    width: calc(100% - 314px);
     display: flex;
     gap: 115px;
   }
 
   .footer h2 {
     margin-bottom: 0;
-    width: 595px;
+    flex-grow: 1;
   }
 
-  .bottom {
+  .footer .bottom {
     display: flex;
     flex-direction: row;
-    gap: 115px;
+    gap: 0px;
+  }
+
+  .footer .bottom-p {
+    width: 314px;
   }
 
   .footer-links-wrapper {
+    width: calc(100% - 314px);
     margin-top: 0;
-    justify-content: unset;
+    justify-content: space-between;
     flex-direction: row;
-    gap: 498px;
   }
+
   .subscribe-form {
     width: 352px;
+  }
+
+  .subscribe-form input[type="email"] {
+    width: 100%;
+  }
+
+  .subscribe-form button {
+    width: 100%;
   }
 }
