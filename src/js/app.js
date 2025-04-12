@@ -73,8 +73,6 @@ tabLinks.forEach((link) => {
   });
 });
 
-const quoteOfTheDay = await api.getQuoteOfTheDay();
-
 quoteAuthor.textContent = quoteOfTheDay.author;
 quoteText.textContent = quoteOfTheDay.quote;
 
@@ -96,6 +94,10 @@ const equipmentExercises = new Exercises(api, FILTERS_EQUIPMENT, equipmentTab, {
   limit: 12,
 });
 
-await musclesExercises.resetToFilters();
-await bodyPartsExercises.resetToFilters();
-await equipmentExercises.resetToFilters();
+async function init() {
+  const quoteOfTheDay = await api.getQuoteOfTheDay();
+  await musclesExercises.resetToFilters();
+  await bodyPartsExercises.resetToFilters();
+  await equipmentExercises.resetToFilters();
+}
+init();
