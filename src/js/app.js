@@ -11,7 +11,6 @@ import {
 const api = new Api({});
 
 const tabLinks = document.querySelectorAll(".exercises .tab-link");
-const tabContent = document.querySelector(".exercises .tab-content");
 const musclesTab = document.querySelector(".exercises .muscles-tab");
 const bodyPartsTab = document.querySelector(".exercises .body-parts-tab");
 const equipmentTab = document.querySelector(".exercises .equipment-tab");
@@ -73,6 +72,8 @@ tabLinks.forEach((link) => {
   });
 });
 
+const quoteOfTheDay = await api.getQuoteOfTheDay();
+
 quoteAuthor.textContent = quoteOfTheDay.author;
 quoteText.textContent = quoteOfTheDay.quote;
 
@@ -94,10 +95,6 @@ const equipmentExercises = new Exercises(api, FILTERS_EQUIPMENT, equipmentTab, {
   limit: 12,
 });
 
-async function init() {
-  const quoteOfTheDay = await api.getQuoteOfTheDay();
-  await musclesExercises.resetToFilters();
-  await bodyPartsExercises.resetToFilters();
-  await equipmentExercises.resetToFilters();
-}
-init();
+await musclesExercises.resetToFilters();
+await bodyPartsExercises.resetToFilters();
+await equipmentExercises.resetToFilters();

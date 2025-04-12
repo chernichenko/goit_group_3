@@ -5,7 +5,7 @@
 .exercises .motivation-section {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
     margin-bottom: 2rem;
 }
 
@@ -194,6 +194,7 @@
     .exercises .motivation-section {
         flex-direction: row;
         flex-wrap: wrap;
+        gap: 1rem;
     }
 
     .exercises .quote-card,
@@ -239,15 +240,16 @@
     .exercises .tab-motivation-container {
         display: flex;
         flex-direction: row-reverse;
+        gap: 32px;
     }
 
     .exercises .motivation-section {
-        min-width: 27.75rem;
-        padding-right: 2rem;
+        width: 440px;
         flex-direction: column;
     }
 
     .exercises .tab-content {
+        width: calc(100% - 472px);
         flex-grow: 1;
         margin-top: 0;
     }
