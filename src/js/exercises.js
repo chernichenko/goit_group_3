@@ -4,7 +4,7 @@ import {
   FILTERS_MUSCLES,
   FILTERS_EQUIPMENT,
 } from "./model.js";
-import icons from "/images/icons.svg";
+// import icons from "/images/icons.svg";
 
 export default class Exercises {
   /**
