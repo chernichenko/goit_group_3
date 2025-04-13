@@ -1,6 +1,5 @@
 import iziToast from "izitoast";
-import "izitoast/dist/css/iziToast.min.css";
-import Client from "./api";
+import Client from "./api.js";
 
 const form = document.querySelector(".subscribe-form");
 const emailInput = form.elements.email;
