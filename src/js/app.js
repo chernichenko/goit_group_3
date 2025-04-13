@@ -1,5 +1,6 @@
 import Api from "./api.js";
 import "./header.js";
+import "./footer-subscribe.js";
 import { updateModal } from "./exercises-modal.js";
 import Exercises from "./exercises.js";
 import {

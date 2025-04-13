@@ -1,9 +1,11 @@
-@import './common.css';
-@import './header.css';
-@import './hero.css';
-@import './exercises.css';
-@import './exercises-cards.css';
-@import './exercises-modal.css';
-@import './rating-modal.css';
-@import './favorites.css';
-@import './footer.css';
+@import url("izitoast/dist/css/iziToast.min.css");
+
+@import "./common.css";
+@import "./header.css";
+@import "./hero.css";
+@import "./exercises.css";
+@import "./exercises-cards.css";
+@import "./exercises-modal.css";
+@import "./rating-modal.css";
+@import "./favorites.css";
+@import "./footer.css";

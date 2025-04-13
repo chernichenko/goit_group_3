@@ -4,7 +4,6 @@ import {
   FILTERS_MUSCLES,
   FILTERS_EQUIPMENT,
 } from "./model.js";
-import icons from "/images/icons.svg";
 
 export default class Exercises {
   /**
@@ -144,7 +143,7 @@ export default class Exercises {
     ${rating.toFixed(1)}
     <div class="icon">
       <svg width="2rem" height="2rem">
-          <use href="${icons}#star"></use>
+          <use href="/images/icons.svg#star"></use>
       </svg>
     </div>
   </div>
@@ -152,7 +151,7 @@ export default class Exercises {
     Start
     <div class="icon">
       <svg>
-          <use href="${icons}#arrow"></use>
+          <use href="/images/icons.svg#arrow"></use>
       </svg>
     </div>
   </button>
@@ -160,7 +159,7 @@ export default class Exercises {
 <div class="name">
   <div class="icon">
     <svg width="2rem" height="2rem">
-        <use href="${icons}#run"></use>
+        <use href="/images/icons.svg#run"></use>
     </svg>
   </div>
   ${name}
