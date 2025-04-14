@@ -1186,9 +1186,12 @@ section {
     flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 20px;
+    gap: 8px;
 }
 .buttons button {
-    margin-top: 10px;
+    width: calc(50% - 4px);
+    white-space: nowrap;
+    padding: 0.75rem;
 }
 .buttons button:hover svg {
     stroke: white;
@@ -1524,6 +1527,16 @@ section {
   align-items: center;
   justify-content: flex-start;
   flex-wrap: nowrap;
+}
+.favorites .exercise-item .trash {
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+.favorites .exercise-item .trash svg {
+  width: 16px;
+  height: 16px;
 }
 .favorites .exercise-item .header .workout {
   border: 1px solid #242424;

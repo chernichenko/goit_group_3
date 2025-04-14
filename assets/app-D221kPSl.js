@@ -5346,18 +5346,46 @@ async function updateModal(id) {
   modal.querySelectorAll(".info")[4].innerHTML = `${info.burnedCalories}`;
   modal.querySelectorAll(".info")[5].textContent = info.description;
   let addFav = document.querySelector("#ex-mod-fav");
-  addFav.addEventListener("click", () => {
-    let favorites = localStorage.getItem("favorite");
 
-    if (favorites) {
-      const favoritesArray = JSON.parse(favorites);
-      const newFavoritesArray = [...favoritesArray, info];
-      const uniqueFavorites = Array.from(
-        new Map(newFavoritesArray.map(item => [item._id, item])).values()
-      );
-      localStorage.setItem("favorite", JSON.stringify(uniqueFavorites));
+  const favorites = JSON.parse(localStorage.getItem('favorite')) || [];
+  const isFavorite = !!favorites.find((item) => item._id === id);
+
+  if (isFavorite) {
+    addFav.innerHTML = `
+      Remove
+      <svg width="20px" height="18px">
+        <use href="${icons}#trash"></use>
+      </svg>
+    `;
+  } else {
+    addFav.innerHTML = `
+      Add to favorites
+      <svg width="20px" height="18px">
+        <use href="${icons}#heart"></use>
+      </svg>
+    `;
+  }
+
+  addFav.addEventListener("click", () => {
+    const favorites = JSON.parse(localStorage.getItem('favorite')) || [];
+
+    if (isFavorite) {
+      const updated = favorites.filter(item => item._id !== id);
+      if (updated?.length) {
+        localStorage.setItem("favorite", JSON.stringify(updated));
+      } else {
+        localStorage.removeItem("favorite");
+      }
     } else {
-      localStorage.setItem("favorite", JSON.stringify([info]));
+      if (favorites.length) {
+        const newFavoritesArray = [...favorites, info];
+        const uniqueFavorites = Array.from(
+          new Map(newFavoritesArray.map(item => [item._id, item])).values()
+        );
+        localStorage.setItem("favorite", JSON.stringify(uniqueFavorites));
+      } else {
+        localStorage.setItem("favorite", JSON.stringify([info]));
+      }
     }
 
     document.querySelector(".mod-n-over").style.display = "none";
@@ -5481,49 +5509,62 @@ function displayFavorites() {
   const list = document.createElement("ul");
   list.classList.add("exercises-list");
   favorites.forEach((exercise) => {
-    const { rating, name, burnedCalories, time, bodyPart, target } = exercise;
-    const li = document.createElement("li");
-    li.classList.add("exercise-item");
-    li.innerHTML = `
-  <div class="header">
-    <div class="workout">WORKOUT</div>
-    <div class="rating">
-      ${rating.toFixed(1)}
+    const { _id, name, burnedCalories, time, bodyPart, target } = exercise;
+  const li = document.createElement("li");
+  li.classList.add("exercise-item");
+  li.innerHTML = `
+    <div class="header">
+      <div class="workout">WORKOUT</div>
+      <div class="trash" style="cursor: pointer;">
+        <svg>
+            <use href="${icons}#trash"></use>
+        </svg>
+      </div>
+      <button type="button" class="start">
+        Start
+        <div class="icon">
+          <svg>
+              <use href="${icons}#arrow"></use>
+          </svg>
+        </div>
+      </button>
+    </div>
+    <div class="name">
       <div class="icon">
         <svg width="2rem" height="2rem">
-            <use href="${icons}#star"></use>
+            <use href="${icons}#run"></use>
         </svg>
       </div>
+      ${name}
     </div>
-    <button type="button" class="start">
-      Start
-      <div class="icon">
-        <svg>
-            <use href="${icons}#arrow"></use>
-        </svg>
-      </div>
-    </button>
-  </div>
-  <div class="name">
-    <div class="icon">
-      <svg width="2rem" height="2rem">
-          <use href="${icons}#run"></use>
-      </svg>
+    <div class="info">
+      <div class="burned-calories">Burned calories: <span class="value">${burnedCalories} / ${time} min</span></div>
+      <div class="body-part">Body part: <span class="value">${bodyPart}</span></div>
+      <div class="target">Target: <span class="value">${target}</span></div>
     </div>
-    ${name}
-  </div>
-  <div class="info">
-    <div class="burned-calories">Burned calories: <span class="value">${burnedCalories} / ${time} min</span></div>
-    <div class="body-part">Body part: <span class="value">${bodyPart}</span></div>
-    <div class="target">Target: <span class="value">${target}</span></div>
-  </div>
   `;
-    list.appendChild(li);
+  list.appendChild(li);
 
     const start = li.querySelector(".start");
     start.addEventListener("click", (e) => {
       e.preventDefault();
       openModal(exercise._id);
+    });
+
+    const trash = li.querySelector(".trash");
+    trash.addEventListener("click", () => {
+      const updated = favorites.filter(item => item._id !== _id);
+      if (updated?.length) {
+        localStorage.setItem("favorite", JSON.stringify(updated));
+      } else {
+        localStorage.removeItem("favorite");
+        const container = document.querySelector('#favorites-list');
+        container?.classList.add('empty');
+        container.innerHTML = `<div id="no-favorites-msg" class="favorites-container-empty hidden">It appears that you haven't added any exercises to your favorites yet. To get started, you can add exercises that you like to your favorites for easier access in the future.</div>`;
+        const containerEmpty = document.querySelector('#no-favorites-msg');
+        containerEmpty?.classList.remove('hidden');
+      }
+      displayFavorites();
     });
   });
   container.appendChild(list);
