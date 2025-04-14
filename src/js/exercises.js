@@ -39,7 +39,7 @@ export default class Exercises {
    * */
   async resetToFilters({ page = 1 } = {}) {
     if (!this.container) return;
-    
+
     this.container.innerHTML = "";
     const rs = await this.api.listFilters({
       filter: this.filter,

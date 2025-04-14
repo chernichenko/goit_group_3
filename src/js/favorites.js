@@ -1,13 +1,5 @@
-const noFavoritesMsg = document.querySelector(".tab-content .no-content");
-const favorites = JSON.parse(localStorage.getItem("favorite")) || [];
-
-if (favorites?.length === 0) {
-  noFavoritesMsg.classList.remove("hidden");
-
-  
-} else {
-  noFavoritesMsg.classList.add("hidden");
-}
+import icons from "/images/icons.svg";
+import { openModal } from "./exercises-modal.js";
 
 function saveQuoteToLocalStorage(quote) {
   const today = new Date().toISOString().split('T')[0];
@@ -65,36 +57,68 @@ async function checkAndDisplayQuote() {
 }
 
 
-// УЛЮБЛЕНІ ВПРАВИ 
 function displayFavorites() {
-  const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  const favorites = JSON.parse(localStorage.getItem('favorite')) || [];
   const container = document.querySelector('#favorites-list');
   const noFavoritesMsg = document.querySelector('#no-favorites-msg');
-  if (!container) return;
 
+  if (!container) return;
   container.innerHTML = '';
 
   if (favorites.length === 0) {
-    noFavoritesMsg?.classList.remove('hidden');
+    noFavoritesMsg?.classList.add('hidden');
     return;
   }
 
-  noFavoritesMsg?.classList.add('hidden');
+  const list = document.createElement("ul");
+  list.classList.add("exercises-list");
+  favorites.forEach((exercise) => {
+    const { rating, name, burnedCalories, time, bodyPart, target } = exercise;
+    const li = document.createElement("li");
+    li.classList.add("exercise-item");
+    li.innerHTML = `
+  <div class="header">
+    <div class="workout">WORKOUT</div>
+    <div class="rating">
+      ${rating.toFixed(1)}
+      <div class="icon">
+        <svg width="2rem" height="2rem">
+            <use href="${icons}#star"></use>
+        </svg>
+      </div>
+    </div>
+    <button type="button" class="start">
+      Start
+      <div class="icon">
+        <svg>
+            <use href="${icons}#arrow"></use>
+        </svg>
+      </div>
+    </button>
+  </div>
+  <div class="name">
+    <div class="icon">
+      <svg width="2rem" height="2rem">
+          <use href="${icons}#run"></use>
+      </svg>
+    </div>
+    ${name}
+  </div>
+  <div class="info">
+    <div class="burned-calories">Burned calories: <span class="value">${burnedCalories} / ${time} min</span></div>
+    <div class="body-part">Body part: <span class="value">${bodyPart}</span></div>
+    <div class="target">Target: <span class="value">${target}</span></div>
+  </div>
+  `;
+    list.appendChild(li);
 
-  favorites.forEach(exercise => {
-    const card = document.createElement('div');
-    card.classList.add('exercise-card');
-    card.innerHTML = `
-      <img src="${exercise.gifUrl}" alt="${exercise.name}" />
-      <h3>${exercise.name}</h3>
-      <p>Body Part: ${exercise.bodyPart}</p>
-      <p>Equipment: ${exercise.equipment}</p>
-      <p>Target: ${exercise.target}</p>
-      <p>${exercise.description}</p>
-      <button class="remove-btn" data-id="${exercise._id}">Remove</button>
-    `;
-    container.appendChild(card);
+    const start = li.querySelector(".start");
+    start.addEventListener("click", (e) => {
+      e.preventDefault();
+      openModal(exercise._id);
+    });
   });
+  container.appendChild(list);
 }
 
 function removeExerciseFromFavorites(id) {
@@ -106,7 +130,7 @@ function removeExerciseFromFavorites(id) {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  
+
   const searchIcon = document.querySelector(".exercises .search-container-icon-wrap");
   const searchInput = document.querySelector(".exercises .search-container input");
   const searchContainer = document.querySelector(".exercises .search-container");
@@ -114,14 +138,14 @@ document.addEventListener('DOMContentLoaded', () => {
     searchIcon.addEventListener("click", searchSubmitHandler);
   }
 
- 
+
   displayFavorites();
   checkAndDisplayQuote();
 });
 
 
 document.addEventListener('click', event => {
-  if (event.target.classList.contains('remove-btn')) {
+  if (event.target?.classList.contains('remove-btn')) {
     const id = event.target.getAttribute('data-id');
     removeExerciseFromFavorites(id);
   }

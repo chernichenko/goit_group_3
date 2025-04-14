@@ -73,9 +73,13 @@ tabLinks.forEach((link) => {
 });
 
 const quoteOfTheDay = await api.getQuoteOfTheDay();
+if (quoteAuthor) {
+  quoteAuthor.textContent = quoteOfTheDay.author;
+}
+if (quoteText) {
+  quoteText.textContent = quoteOfTheDay.quote;
+}
 
-quoteAuthor.textContent = quoteOfTheDay.author;
-quoteText.textContent = quoteOfTheDay.quote;
 
 const musclesExercises = new Exercises(
   api,
