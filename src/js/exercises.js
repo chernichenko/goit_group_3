@@ -38,6 +38,8 @@ export default class Exercises {
    * @returns {Promise<void>} - A promise that resolves when the component is initialized.
    * */
   async resetToFilters({ page = 1 } = {}) {
+    if (!this.container) return;
+
     this.container.innerHTML = "";
     const rs = await this.api.listFilters({
       filter: this.filter,

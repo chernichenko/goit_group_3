@@ -4,7 +4,6 @@ const api = new Api({});
 
 async function updateModal(id) {
   const info = await api.getExrciseById(id);
-  console.log(info);
   const modal = document.querySelector(".ex-modal");
   modal.querySelector(".title").textContent = info.name;
   // renderStars(info.rating);
@@ -25,14 +24,15 @@ async function updateModal(id) {
     let favorites = localStorage.getItem("favorite");
 
     if (favorites) {
-      let arr = JSON.parse(favorites);
-      let set = new Set(arr);
-      set.add(id);
-      localStorage.setItem("favorite", JSON.stringify(Array.from(set)));
+      const favoritesArray = JSON.parse(favorites);
+      const newFavoritesArray = [...favoritesArray, info];
+      const uniqueFavorites = Array.from(
+        new Map(newFavoritesArray.map(item => [item._id, item])).values()
+      );
+      localStorage.setItem("favorite", JSON.stringify(uniqueFavorites));
     } else {
-      localStorage.setItem("favorite", JSON.stringify(JSON.stringify([id])));
+      localStorage.setItem("favorite", JSON.stringify([info]));
     }
-    console.log("fav button");
   });
 }
 
@@ -56,7 +56,9 @@ export function openModal(id) {
   updateModal(id);
 }
 
-document.querySelector(".overlay").addEventListener("click", () => {
+document.querySelector(".overlay")?.addEventListener("click", () => {
   document.querySelector(".ex-modal").style.display = "none";
   document.querySelector(".overlay").style.display = "none";
 });
+
+
