@@ -5326,6 +5326,7 @@ const icons = "/goit_group_3/images/icons.svg";
 const api$1 = new Client({});
 
 let giveRatingHandler;
+let favClickHandler;
 const ratingModal = document.getElementById("rating-backdrop");
 
 function openRatingModal(exerciseId) {
@@ -5366,7 +5367,11 @@ async function updateModal(id) {
     `;
   }
 
-  addFav.addEventListener("click", () => {
+  if (favClickHandler) {
+    addFav.removeEventListener("click", favClickHandler);
+  }
+
+  favClickHandler = () => {
     const favorites = JSON.parse(localStorage.getItem('favorite')) || [];
     const isFavorite = !!favorites.find((item) => item._id === id);
 
@@ -5420,7 +5425,9 @@ async function updateModal(id) {
         </svg>
       `;
     }
-  });
+  };
+
+  addFav.addEventListener("click", favClickHandler);
 
   const giveRatingBtn = document.querySelector("#giveARatingButton");
   if (!giveRatingBtn) return;
@@ -5437,6 +5444,12 @@ async function updateModal(id) {
   };
 
   giveRatingBtn.addEventListener("click", giveRatingHandler);
+
+  const closeExBtn = document.getElementById("close-ex-modal");
+  closeExBtn?.addEventListener("click", () => {
+    document.querySelector(".mod-n-over").style.display = "none";
+    document.querySelector(".overlay").style.display = "none";
+  });
 }
 
 function renderStars(rating) {

@@ -1180,6 +1180,16 @@ section {
         flex-direction: column;
         
     }
+.modal-close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+}
 .buttons {
     display: flex;
     flex-direction: row;
