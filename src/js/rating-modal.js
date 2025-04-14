@@ -1,5 +1,7 @@
-import api from './api';
+import Api from "./api.js";
 import iziToast from "izitoast";
+
+const api = new Api({});
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector('.rating-form');
