@@ -5277,11 +5277,61 @@ form.addEventListener("submit", async (event) => {
   localStorage.removeItem(STORAGE_KEY);
 });
 
+const api$2 = new Client({});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector('.rating-form');
+  const modal = document.getElementById('rating-backdrop');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const rate = Number(form.querySelector('input[name="rating"]:checked')?.value);
+    const email = formData.get('email');
+    const review = formData.get('comment');
+    const exerciseId = modal.dataset.exerciseId;
+
+    if (!rate || !email || !review) {
+      iziToast.warning({
+        message: "Please fill in all fields and select a rating",
+        position: "topRight",
+      });
+      return;
+    }
+
+    try {
+      await api$2.addExerciseRating(exerciseId, rate, email, review);
+
+      modal.classList.add('is-hidden');
+
+      iziToast.success({
+        message: "Rating submitted successfully!",
+        position: "topRight",
+      });
+
+      form.reset();
+      document.getElementById('rating-value').textContent = '0.0';
+    } catch (error) {
+      iziToast.error({
+        message: error.response?.data?.message || "Something went wrong. Please try again.",
+        position: "topRight",
+      });
+    }
+  });
+});
+
 const FILTERS_BODY_PARTS = "Body parts";
 const FILTERS_MUSCLES = "Muscles";
 const FILTERS_EQUIPMENT = "Equipment";
 
 const icons = "/goit_group_3/images/icons.svg";
+
+const searchContainer$1 = document.querySelector(".exercises .search-container");
+const searchContainerInput = document.querySelector(".exercises .search-container input");
+const searchContainerIcon = document.querySelector(".exercises .search-container-icon-wrap");
+let searchSubmitHandler;
+let activeCategory;
 
 class Exercises {
   /**
@@ -5325,6 +5375,21 @@ class Exercises {
   #renderFiltersCards(filters) {
     const list = document.createElement("ul");
     list.classList.add("filters-list");
+
+    if (searchSubmitHandler) {
+      searchContainerIcon.removeEventListener("click", searchSubmitHandler);
+    }
+  
+    searchSubmitHandler = (e) => {
+      e.preventDefault();
+      if (!activeCategory) return;
+
+      const keyword = searchContainerInput.value;
+      this.resetToExercises({ filter: activeCategory, keyword });
+    };
+  
+    searchContainerIcon.addEventListener("click", searchSubmitHandler);
+
     filters.forEach((filter) => {
       const { name, imgURL } = filter;
       const li = document.createElement("li");
@@ -5345,7 +5410,10 @@ class Exercises {
 
       a.addEventListener("click", (e) => {
         e.preventDefault();
+        activeCategory = name;
         this.resetToExercises({ filter: name });
+        searchContainerInput.value = '';
+        searchContainer$1.style.display = "block";
       });
     });
     this.container.appendChild(list);
@@ -5398,13 +5466,24 @@ class Exercises {
         break;
     }
     const rs = await this.api.listExercies(params);
-    this.#renderExercisesCards(rs.results);
-    this.#renderExercisesPagination({
-      filter,
-      keyword,
-      page,
-      totalPages: rs.totalPages,
-    });
+    if (!!rs?.results?.length) {
+      this.#renderExercisesCards(rs.results);
+      this.#renderExercisesPagination({
+        filter,
+        keyword,
+        page,
+        totalPages: rs.totalPages,
+      });
+    } else {
+      this.#renderNoResults();
+    }
+  }
+
+  #renderNoResults() {
+    const message = document.createElement("div");
+    message.classList.add("no-results-message");
+    message.textContent = "There is no result here";
+    this.container.appendChild(message);
   }
 
   #renderExercisesCards(exercises) {
@@ -5513,6 +5592,53 @@ const createPaginationItem = ({
   return item;
 };
 
+const api$1 = new Client({});
+
+async function updateModal(id) {
+  const info = await api$1.getExrciseById(id);
+  console.log(info);
+  const modal = document.querySelector(".ex-modal");
+  modal.querySelector(".title").textContent = info.name;
+  // renderStars(info.rating);
+  modal.querySelector(".mod-img").src = info.gifUrl;
+  modal.querySelectorAll(".info")[0].innerHTML =
+    `<span>Target:</span> ${info.target}`;
+  modal.querySelectorAll(".info")[1].innerHTML =
+    `<span>Body Part:</span> ${info.bodyPart}`;
+  modal.querySelectorAll(".info")[2].innerHTML =
+    `<span>Equipment:</span> ${info.equipment}`;
+  modal.querySelectorAll(".info")[3].innerHTML =
+    `<span>Popular:</span> ${info.popular}`;
+  modal.querySelectorAll(".info")[4].innerHTML =
+    `<span>Burned calories:</span> ${info.burnedCalories}`;
+  modal.querySelectorAll(".info")[5].textContent = info.description;
+  let addFav = document.querySelector("#ex-mod-fav");
+  addFav.addEventListener("click", () => {
+    let favorites = localStorage.getItem("favorite");
+
+    if (favorites) {
+      let arr = JSON.parse(favorites);
+      let set = new Set(arr);
+      set.add(id);
+      localStorage.setItem("favorite", JSON.stringify(Array.from(set)));
+    } else {
+      localStorage.setItem("favorite", JSON.stringify(JSON.stringify([id])));
+    }
+    console.log("fav button");
+  });
+}
+
+function openModal(id) {
+  document.querySelector(".ex-modal").style.display = "block";
+  document.querySelector(".overlay").style.display = "block";
+  updateModal(id);
+}
+
+document.querySelector(".overlay").addEventListener("click", () => {
+  document.querySelector(".ex-modal").style.display = "none";
+  document.querySelector(".overlay").style.display = "none";
+});
+
 const api = new Client({});
 
 const tabLinks = document.querySelectorAll(".exercises .tab-link");
@@ -5520,7 +5646,6 @@ const musclesTab = document.querySelector(".exercises .muscles-tab");
 const bodyPartsTab = document.querySelector(".exercises .body-parts-tab");
 const equipmentTab = document.querySelector(".exercises .equipment-tab");
 const searchContainer = document.querySelector(".exercises .search-container");
-const bodyPartsTitle = document.querySelector(".exercises .body-parts-title");
 const quoteAuthor = document.querySelector(".quote-author");
 const quoteText = document.querySelector(".quote-text");
 const modal = document.getElementById("rating-backdrop");
@@ -5537,34 +5662,30 @@ ratingInputs.forEach((input) => {
 });
 
 tabLinks.forEach((link) => {
-  link.addEventListener("click", function (e) {
+  link.addEventListener("click", async function (e) {
     e.preventDefault();
 
     tabLinks.forEach((link) => link.classList.remove("active"));
     this.classList.add("active");
+    searchContainer.style.display = "none";
 
     const selectedTab = this.getAttribute("data-tab");
 
-    if (selectedTab === "body-parts") {
-      searchContainer.style.display = "block";
-      bodyPartsTitle.style.display = "inline-block";
-    } else {
-      searchContainer.style.display = "none";
-      bodyPartsTitle.style.display = "none";
-    }
-
     switch (selectedTab) {
       case "muscles":
+        await musclesExercises.resetToFilters();
         musclesTab.style.display = "block";
         bodyPartsTab.style.display = "none";
         equipmentTab.style.display = "none";
         break;
       case "body-parts":
+        await bodyPartsExercises.resetToFilters();
         musclesTab.style.display = "none";
         bodyPartsTab.style.display = "block";
         equipmentTab.style.display = "none";
         break;
       case "equipment":
+        await equipmentExercises.resetToFilters();
         musclesTab.style.display = "none";
         bodyPartsTab.style.display = "none";
         equipmentTab.style.display = "block";
@@ -5578,24 +5699,40 @@ const quoteOfTheDay = await api.getQuoteOfTheDay();
 quoteAuthor.textContent = quoteOfTheDay.author;
 quoteText.textContent = quoteOfTheDay.quote;
 
-const musclesExercises = new Exercises(api, FILTERS_MUSCLES, musclesTab, {
-  limit: 12,
-  startCallback: (exercise) => {
-    alert(`Exercise ${exercise.name} has been started!`);
+const musclesExercises = new Exercises(
+  api,
+  FILTERS_MUSCLES,
+  musclesTab,
+  {
+    limit: 12,
+    startCallback: (exercise) => {
+      openModal(exercise._id);
+    },
   },
-});
+);
 
 const bodyPartsExercises = new Exercises(
   api,
   FILTERS_BODY_PARTS,
   bodyPartsTab,
-  { limit: 12 },
+  {
+    limit: 12,
+    startCallback: (exercise) => {
+      openModal(exercise._id);
+    },
+  },
 );
 
-const equipmentExercises = new Exercises(api, FILTERS_EQUIPMENT, equipmentTab, {
-  limit: 12,
-});
+const equipmentExercises = new Exercises(
+  api,
+  FILTERS_EQUIPMENT,
+  equipmentTab,
+  {
+    limit: 12,
+    startCallback: (exercise) => {
+      openModal(exercise._id);
+    },
+  },
+);
 
 await musclesExercises.resetToFilters();
-await bodyPartsExercises.resetToFilters();
-await equipmentExercises.resetToFilters();

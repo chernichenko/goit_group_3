@@ -774,12 +774,18 @@ section {
     background: transparent;
     outline: none;
 }
-.exercises .search-container svg {
+.exercises .search-container-icon-wrap {
     position: absolute;
     width: 20px;
     top: 50%;
     right: 12px;
     transform: translateY(-50%);
+    line-height: 0;
+    cursor: pointer;
+}
+.exercises .search-container-icon-wrap svg {
+    width: 100%;
+    height: auto;
     fill: none;
 }
 .exercises .tab-content {
@@ -960,12 +966,14 @@ section {
     }
 }
 .exercises .filters-list {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 @media (min-width: 768px) {
     .exercises .filters-list {
+        display: grid;
+        gap: 1rem;
         grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
     }
 }
@@ -973,6 +981,7 @@ section {
     .exercises .filters-list {
         display: flex;
         flex-wrap: wrap;
+        flex-direction: row;
         gap: 16px;
       }
       
@@ -1145,6 +1154,7 @@ section {
 }
 .ex-modal {
         width: 400px;
+        color: white;
         background-color: #1e1e1e;
         border-radius: 15px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -1155,6 +1165,8 @@ section {
         transform: translate(-50%, -50%);
         display: none;
         z-index: 1000;
+      
+        
     }
 .ex-modal img {
         width: 100%;
@@ -1238,26 +1250,26 @@ section {
     font-weight: bold;
     min-width: 1.5rem;
 }
-.stars {
+.rating-modal .stars {
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-start;
     gap: 0.3125rem;
     margin-bottom: 1rem;
 }
-.stars input {
+.rating-modal .stars input {
     display: none;
 }
-.stars label::before {
+.rating-modal .stars label::before {
     content: "★";
     font-size: 2.5rem;
     color: #ccc;
     cursor: pointer;
     transition: color 0.2s;
 }
-.stars input:checked~label::before,
-.stars label:hover::before,
-.stars label:hover~label::before {
+.rating-modal .stars input:checked~label::before,
+.rating-modal .stars label:hover::before,
+.rating-modal .stars label:hover~label::before {
     color: #ffc107;
 }
 .rating-modal input,
