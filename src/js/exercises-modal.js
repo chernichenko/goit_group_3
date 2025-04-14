@@ -60,3 +60,5 @@ document.querySelector(".overlay").addEventListener("click", () => {
   document.querySelector(".ex-modal").style.display = "none";
   document.querySelector(".overlay").style.display = "none";
 });
+
+
