@@ -1,28 +1,40 @@
 
 .ex-modal {
-        width: 400px;
+        width: 90%;
+        max-width: 708px;
         color: white;
         background-color: #1e1e1e;
         border-radius: 15px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         padding: 20px;
-        position: fixed;
+        position: relative;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         display: none;
         z-index: 1000;
-      
+        display: flex;
+        flex-direction: column;
         
     }
 
-    .ex-modal img {
-        width: 100%;
-        border-radius: 10px;
-    }
+.buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.buttons button {
+    margin-top: 10px;
+}
+
+    
 
     .ex-modal .title {
         font-size: 24px;
+        color: white;
         margin: 15px 0 5px;
     }
 
@@ -31,10 +43,19 @@
         margin-bottom: 10px;
     }
 
+         .stars svg {
+             width: 24px;
+             height: 24px;
+             fill: gold;
+             margin-right: 2px;
+         }
+
     .ex-modal .info {
         font-size: 14px;
         line-height: 1.5;
         margin-bottom: 10px;
+        size: 12px;
+        /* color: #F4F4F466; */
     }
 
         .overlay {
@@ -44,6 +65,80 @@
             width: 100vw;
             height: 100vh;
             background: rgba(0, 0, 0, 0.5);
-            display: none;
             z-index: 999;
         }
+
+    .ex-modal hr {
+        color: #F4F4F433
+    }
+
+    .mod-lable{
+        align-items: center;
+        color: #F4F4F433;
+        font-size: 12px;
+        font-weight: 400;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+    }
+
+    .mod-lable span {
+        color: white;
+        font-weight: bold;
+        font-size: 14px;
+        
+    }
+
+    .discription {
+        color: #F4F4F433;
+        font-size: 14px;
+    }
+    .modal-content {
+        
+        gap: 20px;
+    }
+
+
+
+    .modal-content::first-letter {
+            text-transform: capitalize
+        }
+
+    .info-block {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    #mod-img {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+        @media screen and (min-width: 768px) {
+            .ex-modal {
+                flex-direction: row;
+            }
+    
+            #mod-img {
+                width: 40%;
+                height: 100%;
+            }
+    
+            .modal-text {
+                width: 60%;
+                padding-left: 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+    
+            .modal-text .info {
+                font-size: 14px;
+                margin-bottom: 6px;
+            }
+        }
+
+       
+           
