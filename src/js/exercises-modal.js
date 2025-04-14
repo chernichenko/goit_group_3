@@ -2,6 +2,14 @@ import Api from "./api.js";
 
 const api = new Api({});
 
+let giveRatingHandler;
+const ratingModal = document.getElementById("rating-backdrop");
+
+function openRatingModal(exerciseId) {
+  ratingModal.classList.remove("is-hidden");
+  ratingModal.dataset.exerciseId = exerciseId;
+}
+
 async function updateModal(id) {
   const info = await api.getExrciseById(id);
   const modal = document.querySelector(".ex-modal");
@@ -34,6 +42,22 @@ async function updateModal(id) {
       localStorage.setItem("favorite", JSON.stringify([info]));
     }
   });
+
+  const giveRatingBtn = document.querySelector("#giveARatingButton");
+  if (!giveRatingBtn) return;
+
+  if (giveRatingHandler) {
+    giveRatingBtn.removeEventListener("click", giveRatingHandler);
+  }
+
+  giveRatingHandler = () => {
+    document.querySelector(".ex-modal").style.display = "none";
+    document.querySelector(".overlay").style.display = "none";
+    
+    openRatingModal(info._id);
+  };
+
+  giveRatingBtn.addEventListener("click", giveRatingHandler);
 }
 
 function renderStars(rating) {
@@ -60,5 +84,3 @@ document.querySelector(".overlay")?.addEventListener("click", () => {
   document.querySelector(".ex-modal").style.display = "none";
   document.querySelector(".overlay").style.display = "none";
 });
-
-

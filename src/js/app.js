@@ -25,11 +25,6 @@ const closeBtn = document.getElementById("close-modal");
 const ratingInputs = document.querySelectorAll('.stars input[type="radio"]');
 const ratingValue = document.getElementById("rating-value");
 
-export function openRatingModal(exerciseId) {
-  modal.classList.remove("is-hidden");
-  modal.dataset.exerciseId = exerciseId;
-}
-
 closeBtn?.addEventListener("click", () => modal.classList.add("is-hidden"));
 
 ratingInputs.forEach((input) => {
