@@ -41,6 +41,7 @@ tabLinks.forEach((link) => {
   link.addEventListener("click", async function (e) {
     e.preventDefault();
 
+    document.querySelector('.exercises-title').innerHTML = `Exercises`;
     tabLinks.forEach((link) => link.classList.remove("active"));
     this.classList.add("active");
     searchContainer.style.display = "none";
