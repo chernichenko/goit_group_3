@@ -15,8 +15,8 @@
   	<link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
   	<link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png" />
   	<link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png" />
-    <script type="module" crossorigin src="/goit_group_3/assets/app-DO9pl3-t.js"></script>
-    <link rel="stylesheet" crossorigin href="/goit_group_3/assets/app-UuZh4zPd.css">
+    <script type="module" crossorigin src="/goit_group_3/assets/app-Bd5_3oxy.js"></script>
+    <link rel="stylesheet" crossorigin href="/goit_group_3/assets/app-CVVRDJRl.css">
   </head>
   <body>
     <header class="header">
@@ -163,7 +163,7 @@
 </section> <section class="exercises">
     <div class="container">
         <div class="exercises-nav">
-            <p class="exercises-title">Exercises <span class="body-parts-title"></p>
+            <p class="exercises-title">Exercises</p>
             <div class="search-container">
                 <input type="text" placeholder="Search" class="search-input" />
                 <div class="search-container-icon-wrap">
@@ -247,31 +247,38 @@
     </div>
 </section> 
 
-<div >
+<div class="mod-n-over" style="display: none;">
   <div class="overlay" id="overlay"></div>
   <div class="ex-modal">
-    <img
+    <img id="mod-img"
       src=""
-      alt="Exercise Image" class="mod-img"/>
-    <div class="title"></div>
-    <div class="stars">★★★★☆</div>
-    <div class="info" id=""></div>
-    <div class="info "><span></div>
-    <div class="info"><span></div>
-    <div class="info"><span></div>
-    <div class="info"><span></div>
-    <p class="info">
-      
-    </p>
+      alt="Exercise Image" />
+    <div class="modal-text">
+      <div class="title"></div>
+      <div class="stars">★★★★☆</div>
+      <hr style="width: 100%;"/>
+      <div class = "info-block">
+        <div class = "mod-lable">Target <span class="info"></span></div>
+        <div class = "mod-lable">Body Part <span class="info"></span></div>
+        <div class = "mod-lable">Equipment <span  class="info"></span></div>
+        <div class = "mod-lable">Popular <span class="info"></span></div>
+        <div class = "mod-lable">Burned Calories<span class="info"></span></div>
+      </div>
+      <hr style="width: 100%;"/>
+      <p class="info discription">
+        
+      </p>
+   
     <div class="buttons">
-      <button class="btn btn-secondary" id="ex-mod-fav">
-        Add to favourites
-        <svg class="icon" width="1.75rem" height="1.75rem" fill="black" fill-opacity="0.5">
-          <use href="./images/heart.svg"></use>
+      <button class="btn btn-secondary no-hover" id="ex-mod-fav">
+        Add to favorites
+        <svg width="20px" height="18px">
+          <use href="./images/icons.svg#heart"></use>
         </svg>
       </button>
-      <button class="btn btn-primaryy" onclick="alert('Rating sent')">Give a rating</button>
+      <button id="giveARatingButton" class="btn btn-primaryy">Give a rating</button>
     </div>
+  </div>
   </div>
 </div>
 

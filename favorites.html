@@ -15,8 +15,8 @@
 		<link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
 		<link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png" />
 		<link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png" />
-		<script type="module" crossorigin src="/goit_group_3/assets/app-DO9pl3-t.js"></script>
-		<link rel="stylesheet" crossorigin href="/goit_group_3/assets/app-UuZh4zPd.css">
+		<script type="module" crossorigin src="/goit_group_3/assets/app-Bd5_3oxy.js"></script>
+		<link rel="stylesheet" crossorigin href="/goit_group_3/assets/app-CVVRDJRl.css">
 	</head>
 	<body>
 		<header class="header">
@@ -126,50 +126,125 @@
               <div class="motivation-section">
                   <div class="quote-card">
                       <div class="quote-icon">
-                          <svg width="2rem" height="2rem">
-                              <use href="./images/icons.svg#run"></use>
-                          </svg>
+                         <img src="/goit_group_3/images/run.svg" width="32px" height="32px" alt="run man">
                       </div>
                       <div class="quote-container">
                           <p class="quote-title">
                               Quote of the day
-                              <svg width="1.25rem" height="1.25rem">
-                                  <use href="./images/icons.svg#comma"></use>
-                              </svg>
+                              <img src="/goit_group_3/images/comma.svg" width="20px" height="20px" alt="comma">
                           </p>
-                          <p class="quote-text">
-                              A lot of times I find that people who are blessed
-                              with the most talent don't ever develop that
-                              attitude, and the ones who aren't blessed in that
-                              way are the most competitive and have the biggest
-                              heart.
-                          </p>
-                          <p class="quote-author">Tom Brady</p>
+                          
                       </div>
                   </div>
+                  
     
                   <div class="motivation-bottom-wrap">
                     <div class="motivation-image">
-                        <img src="./images/quote.jpg" alt="Motivation" />
+                      <picture>
+                        
+                        <source srcset="./images/favorites/favorites-image-desktop@2x.jpg" media="(min-width: 1440px)" type="image/jpg">
+                        
+                        <source srcset="./images/favorites/favorites-image-desktop.jpg" media="(min-width: 1024px)" type="image/jpg">
+                    
+                        <source srcset="./images/favorites/favorites-image-tablet@2x.jpg" media="(min-width: 768px)" type="image/jpg">
+                        
+                        <source srcset="./images/favorites/favorites-image-tablet.jpg" media="(min-width: 768px)" type="image/jpg">
+                
+                        <source srcset="./images/favorites/favorites-image-mobile@2x.jpg" media="(max-width: 767px)" type="image/jpg">
+                        <img src="./images/favorites/favorites-image-mobile.jpg" alt="Motivation" loading="lazy" />
+                      </picture>
                     </div>
+                    
     
                     <div class="sports-norm-card">
                         <div class="sports-icon">
-                            <svg width="2rem" height="2rem">
-                                <use href="./images/icons.svg#workout"></use>
-                            </svg>
+                            <img src="/goit_group_3/images/workout.svg" width="20px" height="20px" alt="workout">
                         </div>
                         <p class="sports-title">110 min</p>
                         <p class="sports-subtitle">Daily norm of sports</p>
                     </div>
                   </div>
               </div>
-              <div class="tab-content">
-                <p class="no-content">It appears that you haven't added any exercises to your favorites yet. To get started, you can add exercises that you like to your favorites for easier access in the future.</p>
-              </div>
+              
+              <ul id="favorites-list" class="favorites-container">
+                <div id="no-favorites-msg" class="favorites-container-empty hidden">It appears that you haven't added any exercises to your favorites yet. To get started, you can add exercises that you like to your favorites for easier access in the future.</div>
+              </ul>
           </div>
       </div>
-    </section>		
+    </section>
+		
+		
+		<div class="mod-n-over" style="display: none;">
+		  <div class="overlay" id="overlay"></div>
+		  <div class="ex-modal">
+		    <img id="mod-img"
+		      src=""
+		      alt="Exercise Image" />
+		    <div class="modal-text">
+		      <div class="title"></div>
+		      <div class="stars">★★★★☆</div>
+		      <hr style="width: 100%;"/>
+		      <div class = "info-block">
+		        <div class = "mod-lable">Target <span class="info"></span></div>
+		        <div class = "mod-lable">Body Part <span class="info"></span></div>
+		        <div class = "mod-lable">Equipment <span  class="info"></span></div>
+		        <div class = "mod-lable">Popular <span class="info"></span></div>
+		        <div class = "mod-lable">Burned Calories<span class="info"></span></div>
+		      </div>
+		      <hr style="width: 100%;"/>
+		      <p class="info discription">
+		        
+		      </p>
+		   
+		    <div class="buttons">
+		      <button class="btn btn-secondary no-hover" id="ex-mod-fav">
+		        Add to favorites
+		        <svg width="20px" height="18px">
+		          <use href="./images/icons.svg#heart"></use>
+		        </svg>
+		      </button>
+		      <button id="giveARatingButton" class="btn btn-primaryy">Give a rating</button>
+		    </div>
+		  </div>
+		  </div>
+		</div>
+		
+		
+		
+		
+		
+		<div class="backdrop is-hidden" id="rating-backdrop">
+		  <div class="rating-modal">
+		    <button class="modal-close-btn" id="close-modal">✕</button>
+		    <form class="rating-form">
+		      <p class="rating-label">Rating</p>
+		      <div class="rating-display">
+		        <span id="rating-value">0.0</span>
+		        <div class="star-rating">
+		          <div class="stars">
+		            <input type="radio" name="rating" id="star5" value="5" />
+		            <label for="star5" title="5 stars"></label>
+		            <input type="radio" name="rating" id="star4" value="4" />
+		            <label for="star4" title="4 stars"></label>
+		            <input type="radio" name="rating" id="star3" value="3" />
+		            <label for="star3" title="3 stars"></label>
+		            <input type="radio" name="rating" id="star2" value="2" />
+		            <label for="star2" title="2 stars"></label>
+		            <input type="radio" name="rating" id="star1" value="1" />
+		            <label for="star1" title="1 star"></label>
+		          </div>
+		        </div>
+		      </div>
+		
+		
+		      <input type="email" name="email" required pattern="^\w+(\.\w+)?@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
+		        placeholder="Email" />
+		      <textarea name="comment" required placeholder="Your comment"></textarea>
+		
+		      <button type="submit" class="btn btn-secondary">Send</button>
+		    </form>
+		  </div>
+		</div>		
 		<footer class="footer">
 		  <div class="container">
 		    <div class="footer-content">

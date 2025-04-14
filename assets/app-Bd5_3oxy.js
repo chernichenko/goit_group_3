@@ -5321,16 +5321,253 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+const icons = "/goit_group_3/images/icons.svg";
+
+const api$1 = new Client({});
+
+let giveRatingHandler;
+const ratingModal = document.getElementById("rating-backdrop");
+
+function openRatingModal(exerciseId) {
+  ratingModal.classList.remove("is-hidden");
+  ratingModal.dataset.exerciseId = exerciseId;
+}
+
+async function updateModal(id) {
+  const info = await api$1.getExrciseById(id);
+  const modal = document.querySelector(".ex-modal");
+  modal.querySelector(".title").textContent = info.name;
+  renderStars(info.rating);
+  modal.querySelector("#mod-img").src = info.gifUrl;
+  modal.querySelectorAll(".info, span")[0].innerHTML = `${info.target}`;
+  modal.querySelectorAll(".info")[1].innerHTML = `${info.bodyPart}`;
+  modal.querySelectorAll(".info")[2].innerHTML = `${info.equipment}`;
+  modal.querySelectorAll(".info")[3].innerHTML = `${info.popularity}`;
+  modal.querySelectorAll(".info")[4].innerHTML = `${info.burnedCalories}`;
+  modal.querySelectorAll(".info")[5].textContent = info.description;
+  let addFav = document.querySelector("#ex-mod-fav");
+  addFav.addEventListener("click", () => {
+    let favorites = localStorage.getItem("favorite");
+
+    if (favorites) {
+      const favoritesArray = JSON.parse(favorites);
+      const newFavoritesArray = [...favoritesArray, info];
+      const uniqueFavorites = Array.from(
+        new Map(newFavoritesArray.map(item => [item._id, item])).values()
+      );
+      localStorage.setItem("favorite", JSON.stringify(uniqueFavorites));
+    } else {
+      localStorage.setItem("favorite", JSON.stringify([info]));
+    }
+
+    document.querySelector(".mod-n-over").style.display = "none";
+    document.querySelector(".overlay").style.display = "none";
+  });
+
+  const giveRatingBtn = document.querySelector("#giveARatingButton");
+  if (!giveRatingBtn) return;
+
+  if (giveRatingHandler) {
+    giveRatingBtn.removeEventListener("click", giveRatingHandler);
+  }
+
+  giveRatingHandler = () => {
+    document.querySelector(".mod-n-over").style.display = "none";
+    document.querySelector(".overlay").style.display = "none";
+    
+    openRatingModal(info._id);
+  };
+
+  giveRatingBtn.addEventListener("click", giveRatingHandler);
+}
+
+function renderStars(rating) {
+  const starContainer = document.querySelector(".stars");
+  starContainer.innerHTML = "";
+  for (let i = 1; i <= 5; i++) {
+    const star = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    star.setAttribute("viewBox", "0 0 24 24");
+    star.innerHTML = `
+      <path d="M12 .587l3.668 7.568L24 9.423l-6 5.854L19.335 24 12 20.013 4.665 24 6 15.277 0 9.423l8.332-1.268z"/>
+    `;
+    star.style.fill = i <= rating ? "gold" : "#444";
+    starContainer.appendChild(star);
+  }
+}
+
+function openModal(id) {
+  document.querySelector(".mod-n-over").style.display = "block";
+  document.querySelector(".overlay").style.display = "block";
+  updateModal(id);
+}
+
+document.querySelector(".overlay")?.addEventListener("click", () => {
+  document.querySelector(".mod-n-over").style.display = "none";
+  document.querySelector(".overlay").style.display = "none";
+});
+
+function saveQuoteToLocalStorage(quote) {
+  const today = new Date().toISOString().split('T')[0];
+  localStorage.setItem('quoteOfTheDay', JSON.stringify({ date: today, quote }));
+}
+
+function getQuoteFromLocalStorage() {
+  const stored = localStorage.getItem('quoteOfTheDay');
+  return stored ? JSON.parse(stored) : null;
+}
+
+function displayQuote(text, author) {
+  const quoteText = document.querySelector('.quote-text');
+  const quoteAuthor = document.querySelector('.quote-author');
+
+  if (quoteText && quoteAuthor) {
+    quoteText.textContent = text;
+    quoteAuthor.textContent = author;
+    return;
+  }
+
+  const quoteContainer = document.querySelector('.quote-container');
+  if (!quoteContainer) return;
+
+  const pText = document.createElement('p');
+  pText.classList.add('quote-text');
+  pText.textContent = text;
+
+  const pAuthor = document.createElement('p');
+  pAuthor.classList.add('quote-author');
+  pAuthor.textContent = author;
+
+  const title = quoteContainer.querySelector('.quote-title');
+  if (title) {
+    quoteContainer.insertBefore(pText, title.nextSibling);
+  } else {
+    quoteContainer.appendChild(pText);
+  }
+  quoteContainer.appendChild(pAuthor);
+}
+
+async function checkAndDisplayQuote() {
+  const today = new Date().toISOString().split('T')[0];
+  const storedQuote = getQuoteFromLocalStorage();
+
+  if (storedQuote?.date === today) {
+    displayQuote(storedQuote.quote.quote, storedQuote.quote.author);
+  } else {
+    const newQuote = await fetchQuote();
+    if (newQuote) {
+      saveQuoteToLocalStorage(newQuote);
+      displayQuote(newQuote.quote, newQuote.author);
+    }
+  }
+}
+
+function displayFavorites() {
+  const favorites = JSON.parse(localStorage.getItem('favorite')) || [];
+  const container = document.querySelector('#favorites-list');
+  const containerEmpty = document.querySelector('#no-favorites-msg');
+
+  if (!container) return;
+
+  if (favorites.length === 0) {
+    container?.classList.add('empty');
+    containerEmpty?.classList.remove('hidden');
+    return;
+  }
+
+  container.innerHTML = '';
+  container?.classList.remove('empty');
+  containerEmpty?.classList.add('hidden');
+
+  const list = document.createElement("ul");
+  list.classList.add("exercises-list");
+  favorites.forEach((exercise) => {
+    const { rating, name, burnedCalories, time, bodyPart, target } = exercise;
+    const li = document.createElement("li");
+    li.classList.add("exercise-item");
+    li.innerHTML = `
+  <div class="header">
+    <div class="workout">WORKOUT</div>
+    <div class="rating">
+      ${rating.toFixed(1)}
+      <div class="icon">
+        <svg width="2rem" height="2rem">
+            <use href="${icons}#star"></use>
+        </svg>
+      </div>
+    </div>
+    <button type="button" class="start">
+      Start
+      <div class="icon">
+        <svg>
+            <use href="${icons}#arrow"></use>
+        </svg>
+      </div>
+    </button>
+  </div>
+  <div class="name">
+    <div class="icon">
+      <svg width="2rem" height="2rem">
+          <use href="${icons}#run"></use>
+      </svg>
+    </div>
+    ${name}
+  </div>
+  <div class="info">
+    <div class="burned-calories">Burned calories: <span class="value">${burnedCalories} / ${time} min</span></div>
+    <div class="body-part">Body part: <span class="value">${bodyPart}</span></div>
+    <div class="target">Target: <span class="value">${target}</span></div>
+  </div>
+  `;
+    list.appendChild(li);
+
+    const start = li.querySelector(".start");
+    start.addEventListener("click", (e) => {
+      e.preventDefault();
+      openModal(exercise._id);
+    });
+  });
+  container.appendChild(list);
+}
+
+function removeExerciseFromFavorites(id) {
+  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  favorites = favorites.filter(exercise => exercise._id !== id);
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+  displayFavorites();
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  const searchIcon = document.querySelector(".exercises .search-container-icon-wrap");
+  const searchInput = document.querySelector(".exercises .search-container input");
+  const searchContainer = document.querySelector(".exercises .search-container");
+  if (searchIcon && searchInput && searchContainer && typeof searchSubmitHandler === 'function') {
+    searchIcon.addEventListener("click", searchSubmitHandler);
+  }
+
+
+  displayFavorites();
+  checkAndDisplayQuote();
+});
+
+
+document.addEventListener('click', event => {
+  if (event.target?.classList.contains('remove-btn')) {
+    const id = event.target.getAttribute('data-id');
+    removeExerciseFromFavorites(id);
+  }
+});
+
 const FILTERS_BODY_PARTS = "Body parts";
 const FILTERS_MUSCLES = "Muscles";
 const FILTERS_EQUIPMENT = "Equipment";
 
-const icons = "/goit_group_3/images/icons.svg";
-
 const searchContainer$1 = document.querySelector(".exercises .search-container");
 const searchContainerInput = document.querySelector(".exercises .search-container input");
 const searchContainerIcon = document.querySelector(".exercises .search-container-icon-wrap");
-let searchSubmitHandler;
+let searchSubmitHandler$1;
+let handleEnterKey;
 let activeCategory;
 
 class Exercises {
@@ -5358,6 +5595,8 @@ class Exercises {
    * @returns {Promise<void>} - A promise that resolves when the component is initialized.
    * */
   async resetToFilters({ page = 1 } = {}) {
+    if (!this.container) return;
+
     this.container.innerHTML = "";
     const rs = await this.api.listFilters({
       filter: this.filter,
@@ -5376,19 +5615,27 @@ class Exercises {
     const list = document.createElement("ul");
     list.classList.add("filters-list");
 
-    if (searchSubmitHandler) {
-      searchContainerIcon.removeEventListener("click", searchSubmitHandler);
+    if (searchSubmitHandler$1) {
+      searchContainerIcon.removeEventListener("click", searchSubmitHandler$1);
+      searchContainerInput.removeEventListener("keydown", handleEnterKey);
     }
   
-    searchSubmitHandler = (e) => {
+    searchSubmitHandler$1 = (e) => {
       e.preventDefault();
       if (!activeCategory) return;
 
       const keyword = searchContainerInput.value;
       this.resetToExercises({ filter: activeCategory, keyword });
     };
+
+    handleEnterKey = (e) => {
+      if (e.key === "Enter") {
+        searchSubmitHandler$1(e);
+      }
+    };
   
-    searchContainerIcon.addEventListener("click", searchSubmitHandler);
+    searchContainerIcon.addEventListener("click", searchSubmitHandler$1);
+    searchContainerInput.addEventListener("keydown", handleEnterKey);
 
     filters.forEach((filter) => {
       const { name, imgURL } = filter;
@@ -5411,6 +5658,7 @@ class Exercises {
       a.addEventListener("click", (e) => {
         e.preventDefault();
         activeCategory = name;
+        document.querySelector('.exercises-title').innerHTML = `Exercises /<span class="body-parts-title">${name}</span>`;
         this.resetToExercises({ filter: name });
         searchContainerInput.value = '';
         searchContainer$1.style.display = "block";
@@ -5592,53 +5840,6 @@ const createPaginationItem = ({
   return item;
 };
 
-const api$1 = new Client({});
-
-async function updateModal(id) {
-  const info = await api$1.getExrciseById(id);
-  console.log(info);
-  const modal = document.querySelector(".ex-modal");
-  modal.querySelector(".title").textContent = info.name;
-  // renderStars(info.rating);
-  modal.querySelector(".mod-img").src = info.gifUrl;
-  modal.querySelectorAll(".info")[0].innerHTML =
-    `<span>Target:</span> ${info.target}`;
-  modal.querySelectorAll(".info")[1].innerHTML =
-    `<span>Body Part:</span> ${info.bodyPart}`;
-  modal.querySelectorAll(".info")[2].innerHTML =
-    `<span>Equipment:</span> ${info.equipment}`;
-  modal.querySelectorAll(".info")[3].innerHTML =
-    `<span>Popular:</span> ${info.popular}`;
-  modal.querySelectorAll(".info")[4].innerHTML =
-    `<span>Burned calories:</span> ${info.burnedCalories}`;
-  modal.querySelectorAll(".info")[5].textContent = info.description;
-  let addFav = document.querySelector("#ex-mod-fav");
-  addFav.addEventListener("click", () => {
-    let favorites = localStorage.getItem("favorite");
-
-    if (favorites) {
-      let arr = JSON.parse(favorites);
-      let set = new Set(arr);
-      set.add(id);
-      localStorage.setItem("favorite", JSON.stringify(Array.from(set)));
-    } else {
-      localStorage.setItem("favorite", JSON.stringify(JSON.stringify([id])));
-    }
-    console.log("fav button");
-  });
-}
-
-function openModal(id) {
-  document.querySelector(".ex-modal").style.display = "block";
-  document.querySelector(".overlay").style.display = "block";
-  updateModal(id);
-}
-
-document.querySelector(".overlay").addEventListener("click", () => {
-  document.querySelector(".ex-modal").style.display = "none";
-  document.querySelector(".overlay").style.display = "none";
-});
-
 const api = new Client({});
 
 const tabLinks = document.querySelectorAll(".exercises .tab-link");
@@ -5653,18 +5854,19 @@ const closeBtn = document.getElementById("close-modal");
 const ratingInputs = document.querySelectorAll('.stars input[type="radio"]');
 const ratingValue = document.getElementById("rating-value");
 
-closeBtn.addEventListener("click", () => modal.classList.add("is-hidden"));
+closeBtn?.addEventListener("click", () => modal.classList.add("is-hidden"));
 
 ratingInputs.forEach((input) => {
-  input.addEventListener("change", () => {
+  input?.addEventListener("change", () => {
     ratingValue.textContent = `${parseFloat(input.value).toFixed(1)}`;
   });
 });
 
 tabLinks.forEach((link) => {
-  link.addEventListener("click", async function (e) {
+  link?.addEventListener("click", async function (e) {
     e.preventDefault();
 
+    document.querySelector('.exercises-title').innerHTML = `Exercises`;
     tabLinks.forEach((link) => link.classList.remove("active"));
     this.classList.add("active");
     searchContainer.style.display = "none";
@@ -5695,9 +5897,13 @@ tabLinks.forEach((link) => {
 });
 
 const quoteOfTheDay = await api.getQuoteOfTheDay();
+if (quoteAuthor) {
+  quoteAuthor.textContent = quoteOfTheDay.author;
+}
+if (quoteText) {
+  quoteText.textContent = quoteOfTheDay.quote;
+}
 
-quoteAuthor.textContent = quoteOfTheDay.author;
-quoteText.textContent = quoteOfTheDay.quote;
 
 const musclesExercises = new Exercises(
   api,
