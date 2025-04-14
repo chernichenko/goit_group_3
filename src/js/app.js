@@ -23,8 +23,9 @@ const closeBtn = document.getElementById("close-modal");
 const ratingInputs = document.querySelectorAll('.stars input[type="radio"]');
 const ratingValue = document.getElementById("rating-value");
 
-export function openRatingModal() {
+export function openRatingModal(exerciseId) {
   modal.classList.remove("is-hidden");
+  modal.dataset.exerciseId = exerciseId;
 }
 
 closeBtn.addEventListener("click", () => modal.classList.add("is-hidden"));
@@ -80,7 +81,8 @@ quoteText.textContent = quoteOfTheDay.quote;
 const musclesExercises = new Exercises(api, FILTERS_MUSCLES, musclesTab, {
   limit: 12,
   startCallback: (exercise) => {
-    alert(`Exercise ${exercise.name} has been started!`);
+    //alert(`Exercise ${exercise.name} has been started!`);
+    openRatingModal(exercise._id)
   },
 });
 
