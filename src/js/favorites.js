@@ -56,19 +56,22 @@ async function checkAndDisplayQuote() {
   }
 }
 
-
 function displayFavorites() {
   const favorites = JSON.parse(localStorage.getItem('favorite')) || [];
   const container = document.querySelector('#favorites-list');
-  const noFavoritesMsg = document.querySelector('#no-favorites-msg');
+  const containerEmpty = document.querySelector('#no-favorites-msg');
 
   if (!container) return;
-  container.innerHTML = '';
 
   if (favorites.length === 0) {
-    noFavoritesMsg?.classList.add('hidden');
+    container?.classList.add('empty');
+    containerEmpty?.classList.remove('hidden');
     return;
   }
+
+  container.innerHTML = '';
+  container?.classList.remove('empty');
+  containerEmpty?.classList.add('hidden');
 
   const list = document.createElement("ul");
   list.classList.add("exercises-list");
