@@ -1,14 +1,3 @@
-const info = {
-  name: "Air bike",
-  target: "Abs",
-  bodyPart: "Waist",
-  equipment: "Body weight",
-  popular: 150,
-  burnedCalories: " 323 / 3 min",
-  info: "This refers to your core muscles, which include the rectus abdominis, obliques, and transverse abdominis. They’re essential for maintaining posture, stability, and generating force in many movements.",
-  rating: 4,
-};
-
 export function updateModal(info) {
   document.querySelector(".title").textContent = info.name;
   document.querySelector(".target").innerHTML =

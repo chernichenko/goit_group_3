@@ -6,6 +6,8 @@ import {
 } from "./model.js";
 import icons from "/images/icons.svg";
 
+const searchContainer = document.querySelector(".exercises .search-container");
+
 export default class Exercises {
   /**
    * @param {Api} api - API client instance.
@@ -69,6 +71,7 @@ export default class Exercises {
       a.addEventListener("click", (e) => {
         e.preventDefault();
         this.resetToExercises({ filter: name });
+        searchContainer.style.display = "block";
       });
     });
     this.container.appendChild(list);
