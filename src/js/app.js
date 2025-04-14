@@ -1,6 +1,7 @@
 import Api from "./api.js";
 import "./header.js";
 import "./footer-subscribe.js";
+import "./rating-modal.js";
 import Exercises from "./exercises.js";
 import {
   FILTERS_MUSCLES,
@@ -37,7 +38,7 @@ ratingInputs.forEach((input) => {
 });
 
 tabLinks.forEach((link) => {
-  link.addEventListener("click", function (e) {
+  link.addEventListener("click", async function (e) {
     e.preventDefault();
 
     tabLinks.forEach((link) => link.classList.remove("active"));
@@ -55,16 +56,19 @@ tabLinks.forEach((link) => {
 
     switch (selectedTab) {
       case "muscles":
+        await musclesExercises.resetToFilters();
         musclesTab.style.display = "block";
         bodyPartsTab.style.display = "none";
         equipmentTab.style.display = "none";
         break;
       case "body-parts":
+        await bodyPartsExercises.resetToFilters();
         musclesTab.style.display = "none";
         bodyPartsTab.style.display = "block";
         equipmentTab.style.display = "none";
         break;
       case "equipment":
+        await equipmentExercises.resetToFilters();
         musclesTab.style.display = "none";
         bodyPartsTab.style.display = "none";
         equipmentTab.style.display = "block";
@@ -81,7 +85,6 @@ quoteText.textContent = quoteOfTheDay.quote;
 const musclesExercises = new Exercises(api, FILTERS_MUSCLES, musclesTab, {
   limit: 12,
   startCallback: (exercise) => {
-    //alert(`Exercise ${exercise.name} has been started!`);
     openRatingModal(exercise._id)
   },
 });
@@ -98,5 +101,3 @@ const equipmentExercises = new Exercises(api, FILTERS_EQUIPMENT, equipmentTab, {
 });
 
 await musclesExercises.resetToFilters();
-await bodyPartsExercises.resetToFilters();
-await equipmentExercises.resetToFilters();
