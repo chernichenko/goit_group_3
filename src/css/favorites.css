@@ -1,29 +1,18 @@
-/* Задаємо перемінні для кольорів та шрифтів */
 :root {
-  /* Кольори */
-  --color-bg: #f4f4f4;
-  --color-bg-dark: #242424;
-  --color-text-light: #f4f4f4;
   --color-text-light-opacity: #f4f4f499;
-  --color-text-dark: #242424;
   --color-text-dark-opacity: #24242499;
-  --color-white: #ffffff;
-
-  /* Шрифти */
-  --font-family-dm-sans: 'DM Sans', sans-serif;
+  --color-whity: #ffffff;
 }
 
-/* Основний стиль для .favorites */
 .favorites {
-  background-color: var(--color-bg);
-  min-height: calc(100vh - 390px);
+  background-color: var(--color-white);
+  min-height: calc(100vh - 24.375rem); 
 }
 
 .favorites .motivation-section {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-bottom: 2rem;
 }
 
 .favorites .motivation-image img {
@@ -39,8 +28,8 @@
 
 .favorites .motivation-image {
   width: 100%;
-  height: 200px;
-  border-radius: 12px;
+  height: 12.5rem; 
+  border-radius: 0.75rem; 
   overflow: hidden;
 }
 
@@ -51,27 +40,28 @@
 }
 
 .favorites .sports-norm-card {
-  background-color: var(--color-white);
+  background-color: var(--color-whity);
   border-radius: 1.25rem;
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   align-items: flex-start;
+  justify-content: center;
 }
 
 .favorites .quote-card {
-  background-color: var(--color-bg-dark);
+  background-color: var(--color-black);
   border-radius: 1.25rem;
-  padding: 1rem;
+  padding: 1.625rem; 
   position: relative;
   display: flex;
-  gap: 1rem;
+  gap: 1.25rem; 
 }
 
 .favorites .quote-title {
-  color: var(--color-text-light);
-  font-family: var(--font-family-dm-sans);
+  color: var(--color-white);
+  font-family: var(--font-family-primary);
   font-weight: 500;
   font-size: 1.25rem;
   line-height: 1.25rem;
@@ -80,7 +70,7 @@
 
 .favorites .quote-text,
 .favorites .quote-author {
-  font-family: var(--font-family-dm-sans);
+  font-family: var(--font-family-primary);
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 1.125rem;
@@ -94,7 +84,7 @@
 }
 
 .favorites .quote-author {
-  color: var(--color-text-light);
+  color: var(--color-white);
 }
 
 .favorites .quote-title svg {
@@ -102,16 +92,16 @@
 }
 
 .favorites .sports-title {
-  font-family: var(--font-family-dm-sans);
+  font-family: var(--font-family-primary);
   font-weight: 500;
   font-size: 1.25rem;
   line-height: 1.25rem;
   letter-spacing: 0;
-  color: var(--color-text-dark);
+  color: var(--color-black);
 }
 
 .favorites .sports-subtitle {
-  font-family: var(--font-family-dm-sans);
+  font-family: var(--font-family-primary);
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 1.125rem;
@@ -121,13 +111,13 @@
 }
 
 .favorites .favorites-title {
-  margin-bottom: 2rem;
-  font-family: var(--font-family-dm-sans);
+  margin-bottom: 1.25rem;
+  font-family: var(--font-family-primary);
   font-weight: 400;
   font-size: 1.75rem;
-  line-height: 2.375rem;
-  letter-spacing: -2%;
-  color: var(--color-text-dark);
+  line-height: 2.375rem; 
+  letter-spacing: -0.05rem;
+  color: var(--color-black);
 }
 
 .favorites .tab-content {
@@ -135,36 +125,45 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 1.25rem; 
 }
 
 .favorites .no-content {
-  font-family: var(--font-family-dm-sans);
+  font-family: var(--font-family-primary);
   font-weight: 400;
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 1.125rem; 
+  line-height: 1.5rem; 
   letter-spacing: 0px;
   text-align: center;
-  max-width: 550px;
+  max-width: 34.375rem; 
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 48rem) and (max-width: 79.9375rem) {
+  .favorites .container {
+    margin-left: 2rem; 
+  }
+
+  .favorites .sports-title {
+    font-size: 1.5rem; 
+  }
+
   .favorites .motivation-bottom-wrap {
     flex-direction: row-reverse;
   }
 
   .favorites .motivation-image,
   .favorites .sports-norm-card {
-    width: calc(50% - 0.5rem);
+    width: calc(50% - 0.3125rem); 
   }
 
   .favorites .quote-title {
     font-size: 1.5rem;
-    line-height: 2rem;
+    line-height: 2rem; 
   }
 
   .favorites .quote-author {
-    font-size: 1rem;
-    line-height: 1.5rem;
+    font-size: 1rem; 
+    line-height: 1.5rem; 
   }
 
   .favorites .favorites-nav {
@@ -177,21 +176,37 @@
 
   .favorites .favorites-title {
     width: 100%;
-    font-size: 2.75rem;
-    line-height: 3rem;
+    font-size: 2.75rem; 
+    line-height: 3rem; 
+    margin-bottom: 2rem; 
+  }
+
+  .favorites .quote-card {
+    gap: 1rem;
+  }
+
+  .favorites .tab-content {
+    margin-top: 8.25rem; 
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 80rem) {
   .favorites .tab-motivation-container {
     display: flex;
     flex-direction: row;
   }
 
+  .favorites .container {
+    margin-left: 2rem; 
+  }
+
   .favorites .motivation-section {
     width: 27.75rem;
-    padding-right: 2rem;
     flex-direction: column;
+  }
+
+  .favorites .sports-title {
+    font-size: 1.5rem; 
   }
 
   .favorites .quote-card,
@@ -202,5 +217,49 @@
 
   .favorites .favorites-title {
     width: 100%;
+    margin-bottom: 2rem; 
+  }
+
+  .favorites .quote-card {
+    gap: 1rem;
+  }
+
+  .favorites .quote-text {
+    font-family: var(--font-family-primary);
+    font-weight: 400;
+    font-size: 0.875rem; 
+    line-height: 1.125rem; 
+    letter-spacing: 0px;
+  }
+
+  .favorites .motivation-bottom-wrap {
+    flex-direction: row-reverse;
+  }
+}
+
+.favorites .quote-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.favorites .quote-title img {
+  width: 1.125rem; 
+  height: 1.125rem; 
+  animation: comma-bounce 0.8s ease-out;
+}
+
+@keyframes comma-bounce {
+  0% {
+    opacity: 0;
+    transform: translateY(0.625rem) scale(0.9); 
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(-0.25rem) scale(1.05); 
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
