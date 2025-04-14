@@ -100,7 +100,3 @@ const equipmentExercises = new Exercises(api, FILTERS_EQUIPMENT, equipmentTab, {
 await musclesExercises.resetToFilters();
 await bodyPartsExercises.resetToFilters();
 await equipmentExercises.resetToFilters();
-
-document.querySelector(".test").addEventListener("click", () => {
-  openModal("64f389465ae26083f39b17a3");
-});
