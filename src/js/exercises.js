@@ -10,6 +10,7 @@ const searchContainer = document.querySelector(".exercises .search-container");
 const searchContainerInput = document.querySelector(".exercises .search-container input");
 const searchContainerIcon = document.querySelector(".exercises .search-container-icon-wrap");
 let searchSubmitHandler;
+let handleEnterKey;
 let activeCategory;
 
 export default class Exercises {
@@ -37,6 +38,8 @@ export default class Exercises {
    * @returns {Promise<void>} - A promise that resolves when the component is initialized.
    * */
   async resetToFilters({ page = 1 } = {}) {
+    if (!this.container) return;
+
     this.container.innerHTML = "";
     const rs = await this.api.listFilters({
       filter: this.filter,
@@ -57,6 +60,7 @@ export default class Exercises {
 
     if (searchSubmitHandler) {
       searchContainerIcon.removeEventListener("click", searchSubmitHandler);
+      searchContainerInput.removeEventListener("keydown", handleEnterKey);
     }
   
     searchSubmitHandler = (e) => {
@@ -66,8 +70,15 @@ export default class Exercises {
       const keyword = searchContainerInput.value;
       this.resetToExercises({ filter: activeCategory, keyword });
     };
+
+    handleEnterKey = (e) => {
+      if (e.key === "Enter") {
+        searchSubmitHandler(e);
+      }
+    };
   
     searchContainerIcon.addEventListener("click", searchSubmitHandler);
+    searchContainerInput.addEventListener("keydown", handleEnterKey);
 
     filters.forEach((filter) => {
       const { name, imgURL } = filter;
@@ -90,6 +101,7 @@ export default class Exercises {
       a.addEventListener("click", (e) => {
         e.preventDefault();
         activeCategory = name;
+        document.querySelector('.exercises-title').innerHTML = `Exercises /<span class="body-parts-title">${name}</span>`;
         this.resetToExercises({ filter: name });
         searchContainerInput.value = '';
         searchContainer.style.display = "block";

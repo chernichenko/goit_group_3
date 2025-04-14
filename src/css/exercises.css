@@ -103,8 +103,7 @@
 }
 
 .exercises .body-parts-tab,
-.exercises .equipment-tab,
-.exercises .body-parts-title {
+.exercises .equipment-tab {
     display: none;
 }
 
@@ -186,6 +185,12 @@
     line-height: 2.375rem;
     letter-spacing: -2%;
     color: #242424;
+}
+
+.exercises .exercises-title span {
+    font-size: 1.5rem;
+    color: #24242480;
+    text-transform: capitalize;
 }
 
 .exercises .waist-title {

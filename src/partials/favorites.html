@@ -7,47 +7,48 @@
           <div class="motivation-section">
               <div class="quote-card">
                   <div class="quote-icon">
-                      <svg width="2rem" height="2rem">
-                          <use href="./images/icons.svg#run"></use>
-                      </svg>
+                     <img src="/images/run.svg" width="32px" height="32px" alt="run man">
                   </div>
                   <div class="quote-container">
                       <p class="quote-title">
                           Quote of the day
-                          <svg width="1.25rem" height="1.25rem">
-                              <use href="./images/icons.svg#comma"></use>
-                          </svg>
+                          <img src="/images/comma.svg" width="20px" height="20px" alt="comma">
                       </p>
-                      <p class="quote-text">
-                          A lot of times I find that people who are blessed
-                          with the most talent don't ever develop that
-                          attitude, and the ones who aren't blessed in that
-                          way are the most competitive and have the biggest
-                          heart.
-                      </p>
-                      <p class="quote-author">Tom Brady</p>
+                      
                   </div>
               </div>
+              
 
               <div class="motivation-bottom-wrap">
                 <div class="motivation-image">
-                    <img src="./images/quote.jpg" alt="Motivation" />
+                  <picture>
+                    
+                    <source srcset="./images/favorites/favorites-image-desktop@2x.jpg" media="(min-width: 1440px)" type="image/jpg">
+                    
+                    <source srcset="./images/favorites/favorites-image-desktop.jpg" media="(min-width: 1024px)" type="image/jpg">
+                
+                    <source srcset="./images/favorites/favorites-image-tablet@2x.jpg" media="(min-width: 768px)" type="image/jpg">
+                    
+                    <source srcset="./images/favorites/favorites-image-tablet.jpg" media="(min-width: 768px)" type="image/jpg">
+            
+                    <source srcset="./images/favorites/favorites-image-mobile@2x.jpg" media="(max-width: 767px)" type="image/jpg">
+                    <img src="./images/favorites/favorites-image-mobile.jpg" alt="Motivation" loading="lazy" />
+                  </picture>
                 </div>
+                
 
                 <div class="sports-norm-card">
                     <div class="sports-icon">
-                        <svg width="2rem" height="2rem">
-                            <use href="./images/icons.svg#workout"></use>
-                        </svg>
+                        <img src="/images/workout.svg" width="20px" height="20px" alt="workout">
                     </div>
                     <p class="sports-title">110 min</p>
                     <p class="sports-subtitle">Daily norm of sports</p>
                 </div>
               </div>
           </div>
-          <div class="tab-content">
-            <p class="no-content">It appears that you haven't added any exercises to your favorites yet. To get started, you can add exercises that you like to your favorites for easier access in the future.</p>
-          </div>
+          <p id="no-favorites-msg" class="no-content hidden">It appears that you haven't added any exercises to your favorites yet. To get started, you can add exercises that you like to your favorites for easier access in the future.</p>
+          <ul id="favorites-list" class="favorites-container">
+          </ul>
       </div>
   </div>
 </section>

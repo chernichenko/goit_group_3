@@ -2,9 +2,16 @@ import Api from "./api.js";
 
 const api = new Api({});
 
+let giveRatingHandler;
+const ratingModal = document.getElementById("rating-backdrop");
+
+function openRatingModal(exerciseId) {
+  ratingModal.classList.remove("is-hidden");
+  ratingModal.dataset.exerciseId = exerciseId;
+}
+
 async function updateModal(id) {
   const info = await api.getExrciseById(id);
-  console.log(info);
   const modal = document.querySelector(".ex-modal");
   modal.querySelector(".title").textContent = info.name;
   renderStars(info.rating);
@@ -20,15 +27,32 @@ async function updateModal(id) {
     let favorites = localStorage.getItem("favorite");
 
     if (favorites) {
-      let arr = JSON.parse(favorites);
-      let set = new Set(arr);
-      set.add(id);
-      localStorage.setItem("favorite", JSON.stringify(Array.from(set)));
+      const favoritesArray = JSON.parse(favorites);
+      const newFavoritesArray = [...favoritesArray, info];
+      const uniqueFavorites = Array.from(
+        new Map(newFavoritesArray.map(item => [item._id, item])).values()
+      );
+      localStorage.setItem("favorite", JSON.stringify(uniqueFavorites));
     } else {
-      localStorage.setItem("favorite", JSON.stringify(JSON.stringify([id])));
+      localStorage.setItem("favorite", JSON.stringify([info]));
     }
-    console.log("fav button");
   });
+
+  const giveRatingBtn = document.querySelector("#giveARatingButton");
+  if (!giveRatingBtn) return;
+
+  if (giveRatingHandler) {
+    giveRatingBtn.removeEventListener("click", giveRatingHandler);
+  }
+
+  giveRatingHandler = () => {
+    document.querySelector(".ex-modal").style.display = "none";
+    document.querySelector(".overlay").style.display = "none";
+    
+    openRatingModal(info._id);
+  };
+
+  giveRatingBtn.addEventListener("click", giveRatingHandler);
 }
 
 function renderStars(rating) {
@@ -47,11 +71,10 @@ function renderStars(rating) {
 
 export function openModal(id) {
   document.querySelector(".mod-n-over").style.display = "block";
-  // document.querySelector(".overlay").style.display = "block";
   updateModal(id);
 }
 
-document.querySelector(".overlay").addEventListener("click", () => {
-  document.querySelector(".mod-n-over").style.display = "none";
-  // document.querySelector(".overlay").style.display = "none";
+document.querySelector(".overlay")?.addEventListener("click", () => {
+  document.querySelector(".ex-modal").style.display = "none";
+  document.querySelector(".overlay").style.display = "none";
 });
