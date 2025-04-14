@@ -1,5 +1,6 @@
 import Api from "./api.js";
 import icons from "/images/icons.svg";
+import iziToast from "izitoast";
 
 const api = new Api({});
 
@@ -46,6 +47,7 @@ async function updateModal(id) {
 
   addFav.addEventListener("click", () => {
     const favorites = JSON.parse(localStorage.getItem('favorite')) || [];
+    const isFavorite = !!favorites.find((item) => item._id === id);
 
     if (isFavorite) {
       const updated = favorites.filter(item => item._id !== id);
@@ -66,8 +68,37 @@ async function updateModal(id) {
       }
     }
 
-    document.querySelector(".mod-n-over").style.display = "none";
-    document.querySelector(".overlay").style.display = "none";
+    if (!isFavorite) {
+      iziToast.success({
+        title: "",
+        message: "Added to favorites",
+        position: "topRight",
+        timeout: 3000,
+        backgroundColor: "#64B880",
+        messageColor: "#fff",
+      });
+      addFav.innerHTML = `
+        Remove
+        <svg width="20px" height="18px">
+          <use href="${icons}#trash"></use>
+        </svg>
+      `
+    } else {
+      iziToast.error({
+        title: "Error",
+        message: "Removed from favorites",
+        position: "topRight",
+        timeout: 3000,
+        backgroundColor: "#EF4040",
+        messageColor: "#fff",
+      });
+      addFav.innerHTML = `
+        Add to favorites
+        <svg width="20px" height="18px">
+          <use href="${icons}#heart"></use>
+        </svg>
+      `
+    }
   });
 
   const giveRatingBtn = document.querySelector("#giveARatingButton");
