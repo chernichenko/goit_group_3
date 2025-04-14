@@ -1,11 +1,13 @@
 .exercises .filters-list {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
 @media (min-width: 768px) {
     .exercises .filters-list {
+        display: grid;
+        gap: 1rem;
         grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
     }
 }
@@ -14,6 +16,7 @@
     .exercises .filters-list {
         display: flex;
         flex-wrap: wrap;
+        flex-direction: row;
         gap: 16px;
       }
       
