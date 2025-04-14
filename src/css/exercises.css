@@ -82,12 +82,19 @@
     outline: none;
 }
 
-.exercises .search-container svg {
+.exercises .search-container-icon-wrap {
     position: absolute;
     width: 20px;
     top: 50%;
     right: 12px;
     transform: translateY(-50%);
+    line-height: 0;
+    cursor: pointer;
+}
+
+.exercises .search-container-icon-wrap svg {
+    width: 100%;
+    height: auto;
     fill: none;
 }
 

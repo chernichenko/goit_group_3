@@ -7,6 +7,10 @@ import {
 import icons from "/images/icons.svg";
 
 const searchContainer = document.querySelector(".exercises .search-container");
+const searchContainerInput = document.querySelector(".exercises .search-container input");
+const searchContainerIcon = document.querySelector(".exercises .search-container-icon-wrap");
+let searchSubmitHandler;
+let activeCategory;
 
 export default class Exercises {
   /**
@@ -50,6 +54,21 @@ export default class Exercises {
   #renderFiltersCards(filters) {
     const list = document.createElement("ul");
     list.classList.add("filters-list");
+
+    if (searchSubmitHandler) {
+      searchContainerIcon.removeEventListener("click", searchSubmitHandler);
+    }
+  
+    searchSubmitHandler = (e) => {
+      e.preventDefault();
+      if (!activeCategory) return;
+
+      const keyword = searchContainerInput.value;
+      this.resetToExercises({ filter: activeCategory, keyword });
+    };
+  
+    searchContainerIcon.addEventListener("click", searchSubmitHandler);
+
     filters.forEach((filter) => {
       const { name, imgURL } = filter;
       const li = document.createElement("li");
@@ -70,7 +89,9 @@ export default class Exercises {
 
       a.addEventListener("click", (e) => {
         e.preventDefault();
+        activeCategory = name;
         this.resetToExercises({ filter: name });
+        searchContainerInput.value = '';
         searchContainer.style.display = "block";
       });
     });
@@ -124,13 +145,24 @@ export default class Exercises {
         break;
     }
     const rs = await this.api.listExercies(params);
-    this.#renderExercisesCards(rs.results);
-    this.#renderExercisesPagination({
-      filter,
-      keyword,
-      page,
-      totalPages: rs.totalPages,
-    });
+    if (!!rs?.results?.length) {
+      this.#renderExercisesCards(rs.results);
+      this.#renderExercisesPagination({
+        filter,
+        keyword,
+        page,
+        totalPages: rs.totalPages,
+      });
+    } else {
+      this.#renderNoResults();
+    }
+  }
+
+  #renderNoResults() {
+    const message = document.createElement("div");
+    message.classList.add("no-results-message");
+    message.textContent = "There is no result here";
+    this.container.appendChild(message);
   }
 
   #renderExercisesCards(exercises) {
