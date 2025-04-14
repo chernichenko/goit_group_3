@@ -2,6 +2,7 @@ import Api from "./api.js";
 import "./header.js";
 import "./footer-subscribe.js";
 import "./rating-modal.js";
+import './favorites.js';
 import Exercises from "./exercises.js";
 import {
   FILTERS_MUSCLES,
@@ -29,16 +30,16 @@ export function openRatingModal(exerciseId) {
   modal.dataset.exerciseId = exerciseId;
 }
 
-closeBtn.addEventListener("click", () => modal.classList.add("is-hidden"));
+closeBtn?.addEventListener("click", () => modal.classList.add("is-hidden"));
 
 ratingInputs.forEach((input) => {
-  input.addEventListener("change", () => {
+  input?.addEventListener("change", () => {
     ratingValue.textContent = `${parseFloat(input.value).toFixed(1)}`;
   });
 });
 
 tabLinks.forEach((link) => {
-  link.addEventListener("click", async function (e) {
+  link?.addEventListener("click", async function (e) {
     e.preventDefault();
 
     document.querySelector('.exercises-title').innerHTML = `Exercises`;

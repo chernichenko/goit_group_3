@@ -1,12 +1,12 @@
-//  ЦИТАТА ДНЯ 
-async function fetchQuote() {
-  try {
-    const response = await fetch('https://your-energy.b.goit.study/api/quote');
-    if (!response.ok) throw new Error('Error fetching quote');
-    return await response.json();
-  } catch (error) {
-    console.error('Failed to fetch quote:', error);
-  }
+const noFavoritesMsg = document.querySelector(".tab-content .no-content");
+const favorites = JSON.parse(localStorage.getItem("favorite")) || [];
+
+if (favorites?.length === 0) {
+  noFavoritesMsg.classList.remove("hidden");
+
+  
+} else {
+  noFavoritesMsg.classList.add("hidden");
 }
 
 function saveQuoteToLocalStorage(quote) {
