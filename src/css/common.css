@@ -111,6 +111,13 @@ section {
   color: var(--color-white);
 }
 
+.btn-secondary.no-hover:focus,
+.btn-secondary.no-hover:hover {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-white);
+  color: var(--color-black);
+}
+
 .social-list {
   display: flex;
   align-items: center;

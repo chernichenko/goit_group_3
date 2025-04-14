@@ -36,6 +36,9 @@ async function updateModal(id) {
     } else {
       localStorage.setItem("favorite", JSON.stringify([info]));
     }
+
+    document.querySelector(".mod-n-over").style.display = "none";
+    document.querySelector(".overlay").style.display = "none";
   });
 
   const giveRatingBtn = document.querySelector("#giveARatingButton");
@@ -46,7 +49,7 @@ async function updateModal(id) {
   }
 
   giveRatingHandler = () => {
-    document.querySelector(".ex-modal").style.display = "none";
+    document.querySelector(".mod-n-over").style.display = "none";
     document.querySelector(".overlay").style.display = "none";
     
     openRatingModal(info._id);
@@ -71,10 +74,11 @@ function renderStars(rating) {
 
 export function openModal(id) {
   document.querySelector(".mod-n-over").style.display = "block";
+  document.querySelector(".overlay").style.display = "block";
   updateModal(id);
 }
 
 document.querySelector(".overlay")?.addEventListener("click", () => {
-  document.querySelector(".ex-modal").style.display = "none";
+  document.querySelector(".mod-n-over").style.display = "none";
   document.querySelector(".overlay").style.display = "none";
 });
