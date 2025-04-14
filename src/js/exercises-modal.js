@@ -14,18 +14,13 @@ async function updateModal(id) {
   const info = await api.getExrciseById(id);
   const modal = document.querySelector(".ex-modal");
   modal.querySelector(".title").textContent = info.name;
-  // renderStars(info.rating);
-  modal.querySelector(".mod-img").src = info.gifUrl;
-  modal.querySelectorAll(".info")[0].innerHTML =
-    `<span>Target:</span> ${info.target}`;
-  modal.querySelectorAll(".info")[1].innerHTML =
-    `<span>Body Part:</span> ${info.bodyPart}`;
-  modal.querySelectorAll(".info")[2].innerHTML =
-    `<span>Equipment:</span> ${info.equipment}`;
-  modal.querySelectorAll(".info")[3].innerHTML =
-    `<span>Popular:</span> ${info.popular}`;
-  modal.querySelectorAll(".info")[4].innerHTML =
-    `<span>Burned calories:</span> ${info.burnedCalories}`;
+  renderStars(info.rating);
+  modal.querySelector("#mod-img").src = info.gifUrl;
+  modal.querySelectorAll(".info, span")[0].innerHTML = `${info.target}`;
+  modal.querySelectorAll(".info")[1].innerHTML = `${info.bodyPart}`;
+  modal.querySelectorAll(".info")[2].innerHTML = `${info.equipment}`;
+  modal.querySelectorAll(".info")[3].innerHTML = `${info.popularity}`;
+  modal.querySelectorAll(".info")[4].innerHTML = `${info.burnedCalories}`;
   modal.querySelectorAll(".info")[5].textContent = info.description;
   let addFav = document.querySelector("#ex-mod-fav");
   addFav.addEventListener("click", () => {
@@ -61,7 +56,7 @@ async function updateModal(id) {
 }
 
 function renderStars(rating) {
-  const starContainer = document.getElementById("starRating");
+  const starContainer = document.querySelector(".stars");
   starContainer.innerHTML = "";
   for (let i = 1; i <= 5; i++) {
     const star = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -75,8 +70,7 @@ function renderStars(rating) {
 }
 
 export function openModal(id) {
-  document.querySelector(".ex-modal").style.display = "block";
-  document.querySelector(".overlay").style.display = "block";
+  document.querySelector(".mod-n-over").style.display = "block";
   updateModal(id);
 }
 
