@@ -8,6 +8,7 @@ import {
   FILTERS_BODY_PARTS,
   FILTERS_EQUIPMENT,
 } from "./model.js";
+import { openModal } from "./exercises-modal.js";
 
 const api = new Api({});
 
@@ -85,7 +86,7 @@ const bodyPartsExercises = new Exercises(
   api,
   FILTERS_BODY_PARTS,
   bodyPartsTab,
-  { limit: 12 },
+  { limit: 12 }
 );
 
 const equipmentExercises = new Exercises(api, FILTERS_EQUIPMENT, equipmentTab, {
