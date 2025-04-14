@@ -111,4 +111,14 @@ export default class Client {
     localStorage.setItem("quoteOfTheDay", quoteObjectString);
     return response;
   }
+
+  /**
+   * @param {Object} data - The subscription data.
+   * @param {string} data.email - The email to subscribe.
+   * @returns {Promise<Object>} The response from the API.
+   */
+  async subscriptionRequest(data) {
+    const response = await this.instance.post("/subscription", data);
+    return response.data;
+  }
 }
