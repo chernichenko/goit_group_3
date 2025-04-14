@@ -1,4 +1,5 @@
 import Api from "./api.js";
+import icons from "/images/icons.svg";
 
 const api = new Api({});
 
@@ -23,18 +24,46 @@ async function updateModal(id) {
   modal.querySelectorAll(".info")[4].innerHTML = `${info.burnedCalories}`;
   modal.querySelectorAll(".info")[5].textContent = info.description;
   let addFav = document.querySelector("#ex-mod-fav");
-  addFav.addEventListener("click", () => {
-    let favorites = localStorage.getItem("favorite");
 
-    if (favorites) {
-      const favoritesArray = JSON.parse(favorites);
-      const newFavoritesArray = [...favoritesArray, info];
-      const uniqueFavorites = Array.from(
-        new Map(newFavoritesArray.map(item => [item._id, item])).values()
-      );
-      localStorage.setItem("favorite", JSON.stringify(uniqueFavorites));
+  const favorites = JSON.parse(localStorage.getItem('favorite')) || [];
+  const isFavorite = !!favorites.find((item) => item._id === id);
+
+  if (isFavorite) {
+    addFav.innerHTML = `
+      Remove
+      <svg width="20px" height="18px">
+        <use href="${icons}#trash"></use>
+      </svg>
+    `
+  } else {
+    addFav.innerHTML = `
+      Add to favorites
+      <svg width="20px" height="18px">
+        <use href="${icons}#heart"></use>
+      </svg>
+    `
+  }
+
+  addFav.addEventListener("click", () => {
+    const favorites = JSON.parse(localStorage.getItem('favorite')) || [];
+
+    if (isFavorite) {
+      const updated = favorites.filter(item => item._id !== id);
+      if (updated?.length) {
+        localStorage.setItem("favorite", JSON.stringify(updated));
+      } else {
+        localStorage.removeItem("favorite");
+      }
     } else {
-      localStorage.setItem("favorite", JSON.stringify([info]));
+      if (favorites.length) {
+        const newFavoritesArray = [...favorites, info];
+        const uniqueFavorites = Array.from(
+          new Map(newFavoritesArray.map(item => [item._id, item])).values()
+        );
+        localStorage.setItem("favorite", JSON.stringify(uniqueFavorites));
+      } else {
+        localStorage.setItem("favorite", JSON.stringify([info]));
+      }
     }
 
     document.querySelector(".mod-n-over").style.display = "none";

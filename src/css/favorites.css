@@ -167,6 +167,18 @@
   flex-wrap: nowrap;
 }
 
+.favorites .exercise-item .trash {
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.favorites .exercise-item .trash svg {
+  width: 16px;
+  height: 16px;
+}
+
 .favorites .exercise-item .header .workout {
   border: 1px solid #242424;
   border-radius: 15px;
