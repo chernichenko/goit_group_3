@@ -16,7 +16,6 @@ const musclesTab = document.querySelector(".exercises .muscles-tab");
 const bodyPartsTab = document.querySelector(".exercises .body-parts-tab");
 const equipmentTab = document.querySelector(".exercises .equipment-tab");
 const searchContainer = document.querySelector(".exercises .search-container");
-const bodyPartsTitle = document.querySelector(".exercises .body-parts-title");
 const quoteAuthor = document.querySelector(".quote-author");
 const quoteText = document.querySelector(".quote-text");
 const modal = document.getElementById("rating-backdrop");
@@ -43,16 +42,9 @@ tabLinks.forEach((link) => {
 
     tabLinks.forEach((link) => link.classList.remove("active"));
     this.classList.add("active");
+    searchContainer.style.display = "none";
 
     const selectedTab = this.getAttribute("data-tab");
-
-    if (selectedTab === "body-parts") {
-      searchContainer.style.display = "block";
-      bodyPartsTitle.style.display = "inline-block";
-    } else {
-      searchContainer.style.display = "none";
-      bodyPartsTitle.style.display = "none";
-    }
 
     switch (selectedTab) {
       case "muscles":
