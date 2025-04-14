@@ -61,7 +61,7 @@
     min-width: 1.5rem;
 }
 
-.stars {
+.rating-modal .stars {
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-start;
@@ -69,11 +69,11 @@
     margin-bottom: 1rem;
 }
 
-.stars input {
+.rating-modal .stars input {
     display: none;
 }
 
-.stars label::before {
+.rating-modal .stars label::before {
     content: "★";
     font-size: 2.5rem;
     color: #ccc;
@@ -81,9 +81,9 @@
     transition: color 0.2s;
 }
 
-.stars input:checked~label::before,
-.stars label:hover::before,
-.stars label:hover~label::before {
+.rating-modal .stars input:checked~label::before,
+.rating-modal .stars label:hover::before,
+.rating-modal .stars label:hover~label::before {
     color: #ffc107;
 }
 

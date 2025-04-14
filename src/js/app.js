@@ -75,22 +75,40 @@ const quoteOfTheDay = await api.getQuoteOfTheDay();
 quoteAuthor.textContent = quoteOfTheDay.author;
 quoteText.textContent = quoteOfTheDay.quote;
 
-const musclesExercises = new Exercises(api, FILTERS_MUSCLES, musclesTab, {
-  limit: 12,
-  startCallback: (exercise) => {
-    openRatingModal(exercise._id)
+const musclesExercises = new Exercises(
+  api,
+  FILTERS_MUSCLES,
+  musclesTab,
+  {
+    limit: 12,
+    startCallback: (exercise) => {
+      openModal(exercise._id);
+    },
   },
-});
+);
 
 const bodyPartsExercises = new Exercises(
   api,
   FILTERS_BODY_PARTS,
   bodyPartsTab,
-  { limit: 12 }
+  {
+    limit: 12,
+    startCallback: (exercise) => {
+      openModal(exercise._id);
+    },
+  },
 );
 
-const equipmentExercises = new Exercises(api, FILTERS_EQUIPMENT, equipmentTab, {
-  limit: 12,
-});
+const equipmentExercises = new Exercises(
+  api,
+  FILTERS_EQUIPMENT,
+  equipmentTab,
+  {
+    limit: 12,
+    startCallback: (exercise) => {
+      openModal(exercise._id);
+    },
+  },
+);
 
 await musclesExercises.resetToFilters();
